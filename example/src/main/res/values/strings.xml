@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">FestEC</string>
+
+    <string name="fa_calendar">&#xf073;</string>
+    <string name="fa_battery_ull">&#xf240;</string>
+
 </resources>
