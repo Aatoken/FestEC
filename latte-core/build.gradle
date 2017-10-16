@@ -32,4 +32,9 @@ dependencies {
     //字体图标
     compile 'com.joanzapata.iconify:android-iconify-ionicons:2.2.2'
     compile 'com.joanzapata.iconify:android-iconify-fontawesome:2.2.2'
+    //Fragment依赖
+    compile 'me.yokeyword:fragmentation:1.0.3'
+    compile 'me.yokeyword:fragmentation-swipeback:1.0.3'
+
+
 }
