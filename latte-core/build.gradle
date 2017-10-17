@@ -1,5 +1,5 @@
 apply plugin: 'com.android.library'
-
+apply plugin: 'android-apt'
 android {
     compileSdkVersion 25
     buildToolsVersion '25.0.3'
@@ -35,6 +35,8 @@ dependencies {
     //Fragment依赖
     compile 'me.yokeyword:fragmentation:1.0.3'
     compile 'me.yokeyword:fragmentation-swipeback:1.0.3'
-
+    //butterknife 依赖
+    compile 'com.jakewharton:butterknife:8.0.1'
+    apt 'com.jakewharton:butterknife-compiler:8.0.1'
 
 }
