@@ -19,7 +19,7 @@ import okhttp3.RequestBody;
  * @date 2017/10/17
  */
 
-public class RestClientBuild {
+public class RestClientBuilder {
     /**
      * 使用final 必须给赋值
      */
@@ -31,11 +31,14 @@ public class RestClientBuild {
     private IError mIError = null;
     private RequestBody mBody = null;
     private File mFile = null;
+    private String mDownloadDir = null;
+    private String mExtension = null;
+    private String mName = null;
     private LoaderStyle mLoaderStyle = null;
     private Context mContext = null;
 
 
-    RestClientBuild() {
+    RestClientBuilder() {
 
     }
 
@@ -45,7 +48,7 @@ public class RestClientBuild {
      * @param url url
      * @return
      */
-    public final RestClientBuild url(String url) {
+    public final RestClientBuilder url(String url) {
         this.mUrl = url;
         return this;
     }
@@ -56,7 +59,7 @@ public class RestClientBuild {
      * @param params 参数集合
      * @return
      */
-    public final RestClientBuild params(WeakHashMap<String, Object> params) {
+    public final RestClientBuilder params(WeakHashMap<String, Object> params) {
         PARAMS.putAll(params);
         return this;
     }
@@ -68,13 +71,13 @@ public class RestClientBuild {
      * @param value
      * @return
      */
-    public final RestClientBuild Params(String key, Object value) {
+    public final RestClientBuilder Params(String key, Object value) {
         PARAMS.put(key, value);
         return this;
     }
 
 
-    public final RestClientBuild raw(String raw) {
+    public final RestClientBuilder raw(String raw) {
         this.mBody = RequestBody.create(MediaType.parse("application/json;charset=UTF-8"), raw);
         return this;
     }
@@ -86,7 +89,7 @@ public class RestClientBuild {
      * @param request
      * @return
      */
-    public final RestClientBuild request(IRequest request) {
+    public final RestClientBuilder request(IRequest request) {
         this.mIRequest = request;
         return this;
     }
@@ -97,7 +100,7 @@ public class RestClientBuild {
      * @param success 实现成功的回调方法
      * @return
      */
-    public final RestClientBuild success(ISuccess success) {
+    public final RestClientBuilder success(ISuccess success) {
         this.mISuccess = success;
         return this;
     }
@@ -108,7 +111,7 @@ public class RestClientBuild {
      * @param failure 实现失败的回调方法
      * @return
      */
-    public final RestClientBuild failure(IFailure failure) {
+    public final RestClientBuilder failure(IFailure failure) {
         this.mIFailure = failure;
         return this;
     }
@@ -119,7 +122,7 @@ public class RestClientBuild {
      * @param error 实现错误的回调方法
      * @return
      */
-    public final RestClientBuild error(IError error) {
+    public final RestClientBuilder error(IError error) {
         this.mIError = error;
         return this;
     }
@@ -130,7 +133,7 @@ public class RestClientBuild {
      * @param body 主体
      * @return
      */
-    public final RestClientBuild body(RequestBody body) {
+    public final RestClientBuilder body(RequestBody body) {
         this.mBody = body;
         return this;
     }
@@ -142,7 +145,7 @@ public class RestClientBuild {
      * @param style   dialog的样式
      * @return
      */
-    public final RestClientBuild loader(Context context, LoaderStyle style) {
+    public final RestClientBuilder loader(Context context, LoaderStyle style) {
         this.mLoaderStyle = style;
         this.mContext = context;
         return this;
@@ -154,7 +157,7 @@ public class RestClientBuild {
      * @param context 上下文
      * @return
      */
-    public final RestClientBuild loader(Context context) {
+    public final RestClientBuilder loader(Context context) {
         this.mLoaderStyle = LoaderStyle.BallClipRotatePulseIndicator;
         this.mContext = context;
         return this;
@@ -165,7 +168,7 @@ public class RestClientBuild {
      * @param file 文件
      * @return
      */
-    public final RestClientBuild file(File file) {
+    public final RestClientBuilder file(File file) {
         this.mFile = file;
         return this;
     }
@@ -175,8 +178,38 @@ public class RestClientBuild {
      * @param filePath 文件的路径
      * @return
      */
-    public final RestClientBuild file(String filePath) {
+    public final RestClientBuilder file(String filePath) {
         this.mFile = new File(filePath);
+        return this;
+    }
+
+    /**
+     * 文件目录
+     * @param dir 目录
+     * @return
+     */
+    public final RestClientBuilder dir(String dir) {
+        this.mDownloadDir = dir;
+        return this;
+    }
+
+    /**
+     * 文件后缀名
+     * @param extension 文件后缀名
+     * @return
+     */
+    public final RestClientBuilder extension(String extension) {
+        this.mExtension = extension;
+        return this;
+    }
+
+    /**
+     * 文件名称
+     * @param name 文件名称
+     * @return
+     */
+    public final RestClientBuilder name(String name) {
+        this.mName = name;
         return this;
     }
 
@@ -184,6 +217,7 @@ public class RestClientBuild {
         return new RestClient(mUrl, PARAMS,
                 mIRequest, mISuccess, mIFailure, mIError,
                 mBody, mFile,
+                mDownloadDir,mExtension,mName,
                 mLoaderStyle, mContext);
     }
 

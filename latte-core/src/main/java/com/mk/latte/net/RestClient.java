@@ -37,6 +37,9 @@ public class RestClient {
     private final IError ERROR;
     private final RequestBody BODY;
     private final File FILE;
+    private final String DOWNLOAD_DIR;
+    private final String EXTENSION;
+    private final String NAME;
     private final LoaderStyle LOADER_STYLE;
     private final Context CONTEXT;
 
@@ -60,6 +63,9 @@ public class RestClient {
                       IError error,
                       RequestBody body,
                       File file,
+                      String downloadDir,
+                      String extension,
+                      String name,
                       LoaderStyle loaderStyle,
                       Context context) {
         this.URL = Url;
@@ -70,13 +76,16 @@ public class RestClient {
         this.ERROR = error;
         this.BODY = body;
         this.FILE = file;
+        this.DOWNLOAD_DIR = downloadDir;
+        this.EXTENSION = extension;
+        this.NAME = name;
         this.LOADER_STYLE = loaderStyle;
         this.CONTEXT = context;
     }
 
 
-    public static RestClientBuild builder() {
-        return new RestClientBuild();
+    public static RestClientBuilder builder() {
+        return new RestClientBuilder();
     }
 
 
