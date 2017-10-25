@@ -2,39 +2,45 @@ package com.mk.latte.app;
 
 import android.content.Context;
 
-import java.util.HashMap;
-
 /**
  * Created by lenovo on 2017/10/15.
  */
 
 public class Latte {
 
+
     /**
-     * 初始化
-     * @param context 建议使用
+     * 初始化 Configurator 获取它的实例
      * @return
      */
-    public static Configurator init(Context context) {
-        getConfigurations().put(ConfigType.APPLICATION_CONTEXT.name(), context.getApplicationContext());
+    private static Configurator getConfigurator() {
         return Configurator.getInstance();
     }
 
-    /**
-     * 获取 Configura
-     * @return
-     */
-    private static HashMap<Object, Object> getConfigurations() {
-        return Configurator.getInstance().getLatteConfigs();
+
+    public static Configurator init() {
+      return getConfigurator();
     }
 
+
+
     /**
-     * 获取 application Context
+     * 获取 Configurator 中 LATTE_CONFIGS集合中 key队友的value
+     * @param key key
+     * @param <T> value
      * @return
      */
-    public static Context getApplication()
-    {
-        return (Context) getConfigurations().get(ConfigType.APPLICATION_CONTEXT.name());
+    public static <T> T getConfigurationByKey(Object key) {
+        return getConfigurator().getConfiguration(key);
+    }
+
+
+    /**
+     * 返回配置中的 Context
+     * @return Context
+     */
+    public static Context getApplication() {
+        return (Context) getConfigurationByKey(ConfigType.APPLICATION_CONTEXT.name());
     }
 
 

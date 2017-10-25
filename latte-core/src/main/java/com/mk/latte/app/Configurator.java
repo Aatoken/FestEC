@@ -1,5 +1,7 @@
 package com.mk.latte.app;
 
+import android.content.Context;
+
 import com.joanzapata.iconify.IconFontDescriptor;
 import com.joanzapata.iconify.Iconify;
 
@@ -18,9 +20,9 @@ public class Configurator {
     private static final ArrayList<IconFontDescriptor> ICONS = new ArrayList<>();
 
     private Configurator() {
-
-        LATTE_CONFIGS.put(ConfigType.CONFIG_READY, false);
-
+        //初始化配置
+        //设置为false表示配置未完成
+        putConfiguration(ConfigType.CONFIG_READY.name(), false);
     }
 
     /**
@@ -33,7 +35,7 @@ public class Configurator {
     }
 
     /**
-     * 内部类
+     * 内部类 用于创建 实例
      */
     private static class Holder {
         private static final Configurator INSTANCE = new Configurator();
@@ -43,12 +45,13 @@ public class Configurator {
      * 配置准备完成
      */
     public final void configure() {
+        //初始化图标
         initIcons();
-        LATTE_CONFIGS.put(ConfigType.CONFIG_READY.name(), true);
+        putConfiguration(ConfigType.CONFIG_READY.name(), true);
     }
 
     /**
-     * 获取配置集合
+     * 获取配置的集合
      *
      * @return
      */
@@ -58,48 +61,59 @@ public class Configurator {
 
 
     /**
+     * LATTE_CONFIGS 存入数据
+     * @param key
+     * @param value
+     */
+    final  void putConfiguration(Object key,Object value) {
+        LATTE_CONFIGS.put(key,value);
+    }
+
+    /**
      * 配置 host 属性
      *
      * @param host
      * @return
      */
     public final Configurator withApiHost(String host) {
-        LATTE_CONFIGS.put(ConfigType.API_HOST.name(), host);
+        putConfiguration(ConfigType.API_HOST.name(), host);
         return this;
     }
 
-    /**
-     *
-     * @param descriptor
-     * @return
-     */
-    public final Configurator withIcon(IconFontDescriptor descriptor)
+    public final Configurator withContext(Context context)
     {
-        ICONS.add(descriptor);
+        putConfiguration(ConfigType.APPLICATION_CONTEXT.name(),context);
         return this;
     }
-
 
     /**
      * 检测配置是否完成
      */
     private void checkConfiguration() {
         final boolean isReady = (boolean) LATTE_CONFIGS.get(ConfigType.CONFIG_READY.name());
-        if (isReady) {
+        if (!isReady) {
             throw new RuntimeException("Configuration is not ready,call configure");
         }
     }
 
 
-    final <T> T getConfiguration(Enum<ConfigType> key) {
+    final <T> T getConfiguration(Object key) {
         checkConfiguration();
-        return (T) LATTE_CONFIGS.get(key.name());
+        final Object value = LATTE_CONFIGS.get(key);
+        if (value == null) {
+            throw new NullPointerException(key.toString() + " IS NULL");
+        }
+        return (T) value;
     }
+
+
+
 
 
 
     /**
      * 初始化 Icons
+     * 也是用来显示
      */
     private void initIcons() {
         if (ICONS.size() > 0) {
@@ -109,6 +123,18 @@ public class Configurator {
             }
         }
     }
+
+    /**
+     * 添加字体图标
+     *
+     * @param descriptor 图标字体库
+     * @return
+     */
+    public final Configurator withIcon(IconFontDescriptor descriptor) {
+        ICONS.add(descriptor);
+        return this;
+    }
+
 
 
 }

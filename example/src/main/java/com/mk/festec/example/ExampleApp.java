@@ -12,16 +12,14 @@ import com.mk.latte.ec.icon.FontModule;
 
 public class ExampleApp extends Application {
 
-
-    //你好啊
-
     @Override
     public void onCreate() {
         super.onCreate();
-        Latte.init(this)
+        Latte.init()
+                .withContext(this)
                 .withIcon(new FontAwesomeModule())
                 .withIcon(new FontModule())
-                .withApiHost("http://127.0.0.1/")
+                .withApiHost("http://news.baidu.com")
                 .configure();
     }
 
