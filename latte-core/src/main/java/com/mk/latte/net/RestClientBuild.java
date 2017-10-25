@@ -8,6 +8,7 @@ import com.mk.latte.net.callback.IRequest;
 import com.mk.latte.net.callback.ISuccess;
 import com.mk.latte.ui.LoaderStyle;
 
+import java.io.File;
 import java.util.WeakHashMap;
 
 import okhttp3.MediaType;
@@ -29,6 +30,7 @@ public class RestClientBuild {
     private IFailure mIFailure = null;
     private IError mIError = null;
     private RequestBody mBody = null;
+    private File mFile = null;
     private LoaderStyle mLoaderStyle = null;
     private Context mContext = null;
 
@@ -39,6 +41,7 @@ public class RestClientBuild {
 
     /**
      * 添加 url
+     *
      * @param url url
      * @return
      */
@@ -49,6 +52,7 @@ public class RestClientBuild {
 
     /**
      * 参数集合 WeakHashMap
+     *
      * @param params 参数集合
      * @return
      */
@@ -59,6 +63,7 @@ public class RestClientBuild {
 
     /**
      * 重载
+     *
      * @param key
      * @param value
      * @return
@@ -77,6 +82,7 @@ public class RestClientBuild {
 
     /**
      * 请求
+     *
      * @param request
      * @return
      */
@@ -87,6 +93,7 @@ public class RestClientBuild {
 
     /**
      * 请求成功
+     *
      * @param success 实现成功的回调方法
      * @return
      */
@@ -97,6 +104,7 @@ public class RestClientBuild {
 
     /**
      * 请求失败
+     *
      * @param failure 实现失败的回调方法
      * @return
      */
@@ -107,6 +115,7 @@ public class RestClientBuild {
 
     /**
      * 请求错误
+     *
      * @param error 实现错误的回调方法
      * @return
      */
@@ -117,6 +126,7 @@ public class RestClientBuild {
 
     /**
      * 主体
+     *
      * @param body 主体
      * @return
      */
@@ -127,11 +137,12 @@ public class RestClientBuild {
 
     /**
      * 显示加载的 loader
+     *
      * @param context 上下文
-     * @param style dialog的样式
+     * @param style   dialog的样式
      * @return
      */
-    public final RestClientBuild loader(Context context,LoaderStyle style) {
+    public final RestClientBuild loader(Context context, LoaderStyle style) {
         this.mLoaderStyle = style;
         this.mContext = context;
         return this;
@@ -139,17 +150,40 @@ public class RestClientBuild {
 
     /**
      * 显示加载的 loader 使用默认的样式
+     *
      * @param context 上下文
      * @return
      */
     public final RestClientBuild loader(Context context) {
-        this.mLoaderStyle =LoaderStyle.BallClipRotatePulseIndicator;
+        this.mLoaderStyle = LoaderStyle.BallClipRotatePulseIndicator;
         this.mContext = context;
         return this;
     }
 
+    /**
+     * 下载文件
+     * @param file 文件
+     * @return
+     */
+    public final RestClientBuild file(File file) {
+        this.mFile = file;
+        return this;
+    }
+
+    /**
+     * 下载文件
+     * @param filePath 文件的路径
+     * @return
+     */
+    public final RestClientBuild file(String filePath) {
+        this.mFile = new File(filePath);
+        return this;
+    }
+
     public final RestClient build() {
-        return new RestClient(mUrl, PARAMS, mIRequest, mISuccess, mIFailure, mIError, mBody,
+        return new RestClient(mUrl, PARAMS,
+                mIRequest, mISuccess, mIFailure, mIError,
+                mBody, mFile,
                 mLoaderStyle, mContext);
     }
 
