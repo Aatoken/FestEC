@@ -39,7 +39,7 @@ public class Latte {
      * 返回配置中的 Context
      * @return Context
      */
-    public static Context getApplication() {
+    public static Context getApplicationContext() {
         return (Context) getConfigurationByKey(ConfigType.APPLICATION_CONTEXT.name());
     }
 

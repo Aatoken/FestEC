@@ -1,10 +1,14 @@
 package com.mk.latte.net;
 
+import android.content.Context;
+
 import com.mk.latte.net.callback.IError;
 import com.mk.latte.net.callback.IFailure;
 import com.mk.latte.net.callback.IRequest;
 import com.mk.latte.net.callback.ISuccess;
 import com.mk.latte.net.callback.RequestCallBacks;
+import com.mk.latte.ui.LatteLoader;
+import com.mk.latte.ui.LoaderStyle;
 
 import java.util.WeakHashMap;
 
@@ -19,7 +23,9 @@ import retrofit2.Callback;
 
 public class RestClient {
 
-    //使用final 必须给赋值
+    /**
+     * 使用final 必须给赋值
+     */
     private final String URL;
     private static final WeakHashMap<String, Object> PARAMS = RestCreator.getParams();
     private final IRequest REQUEST;
@@ -27,16 +33,19 @@ public class RestClient {
     private final IFailure FAILURE;
     private final IError ERROR;
     private final RequestBody BODY;
+    private final LoaderStyle LOADER_STYLE;
+    private final Context CONTEXT;
 
 
     /**
      * 初始化赋值
-     * @param Url 路径
-     * @param Params 参数集合
+     *
+     * @param Url     路径
+     * @param Params  参数集合
      * @param request 请求
      * @param success 请求成功
      * @param failure 请求失败
-     * @param error  请求错误
+     * @param error   请求错误
      * @param body
      */
     public RestClient(String Url,
@@ -45,7 +54,9 @@ public class RestClient {
                       ISuccess success,
                       IFailure failure,
                       IError error,
-                      RequestBody body) {
+                      RequestBody body,
+                      LoaderStyle loaderStyle,
+                      Context context) {
         this.URL = Url;
         PARAMS.putAll(Params);
         this.REQUEST = request;
@@ -53,6 +64,8 @@ public class RestClient {
         this.FAILURE = failure;
         this.ERROR = error;
         this.BODY = body;
+        this.LOADER_STYLE = loaderStyle;
+        this.CONTEXT = context;
     }
 
 
@@ -63,6 +76,7 @@ public class RestClient {
 
     /**
      * 请求
+     *
      * @param method
      */
     public void request(HttpMethod method) {
@@ -74,63 +88,60 @@ public class RestClient {
             REQUEST.onRequestStart();
         }
 
+        //LoaderStyle
+        if (LOADER_STYLE != null) {
+            LatteLoader.showLoading(CONTEXT, LOADER_STYLE);
+        }
+
         switch (method) {
-            case TEST:
-                call=service.test();
-                break;
             case GET:
-                call=service.get(URL,PARAMS);
+                call = service.get(URL, PARAMS);
                 break;
             case POST:
-                call=service.post(URL,PARAMS);
+                call = service.post(URL, PARAMS);
                 break;
             case PUT:
-                call=service.put(URL,PARAMS);
+                call = service.put(URL, PARAMS);
                 break;
             case DELETE:
-                call=service.delete(URL,PARAMS);
+                call = service.delete(URL, PARAMS);
                 break;
             default:
                 break;
         }
 
-        if(call!=null)
-        {
+        if (call != null) {
             call.enqueue(getRequestCallback());
         }
 
     }
 
 
-    private Callback<String> getRequestCallback()
-    {
-        return new RequestCallBacks(REQUEST,SUCCESS,FAILURE,ERROR);
+    private Callback<String> getRequestCallback() {
+        return new RequestCallBacks(
+                REQUEST,
+                SUCCESS,
+                FAILURE,
+                ERROR,
+                LOADER_STYLE);
     }
 
-    public final void test()
-    {
-        request(HttpMethod.TEST);
+
+    public final void get() {
+        request(HttpMethod.GET);
     }
 
-    public final void get()
-    {
-       request(HttpMethod.GET);
-    }
-
-    public final void post()
-    {
+    public final void post() {
         request(HttpMethod.POST);
     }
 
 
-    public final void put()
-    {
+    public final void put() {
         request(HttpMethod.PUT);
     }
 
 
-    public final void delete()
-    {
+    public final void delete() {
         request(HttpMethod.DELETE);
     }
 

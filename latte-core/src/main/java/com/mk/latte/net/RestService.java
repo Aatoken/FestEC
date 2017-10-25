@@ -21,10 +21,9 @@ import retrofit2.http.Url;
 
 public interface RestService {
 
-    @GET("/")
-    Call<String> test();
 
-    @GET("/")
+
+    @GET()
     Call<String> get(@Url String url,@QueryMap WeakHashMap<String, Object> params);
 
     @FormUrlEncoded

@@ -2,6 +2,7 @@ package com.mk.festec.example;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -12,7 +13,9 @@ import com.mk.latte.net.callback.IFailure;
 import com.mk.latte.net.callback.ISuccess;
 
 /**
- * Created by lenovo on 2017/10/16.
+ *
+ * @author lenovo
+ * @date 2017/10/16
  */
 
 public class ExampleDelegate extends LatteDelegate {
@@ -25,17 +28,22 @@ public class ExampleDelegate extends LatteDelegate {
 
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
-        testRestClient();
+         testRestClient();
     }
 
 
+    /**
+     * 测试网络
+     */
     private void testRestClient() {
-        Toast.makeText(getContext(), "开始测试", Toast.LENGTH_SHORT).show();
+
         RestClient.builder()
+                .url("ReadMe.txt")
+                .loader(getContext())
                 .success(new ISuccess() {
                     @Override
                     public void onSuccess(String response) {
-                        Toast.makeText(getContext(), response, Toast.LENGTH_SHORT).show();
+                        Log.d("note",response);
                     }
                 })
                 .failure(new IFailure() {
@@ -51,7 +59,7 @@ public class ExampleDelegate extends LatteDelegate {
                     }
                 })
                 .build()
-                .test();
+                .get();
     }
 
 

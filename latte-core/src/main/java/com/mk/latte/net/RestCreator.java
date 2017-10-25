@@ -42,14 +42,19 @@ public final class RestCreator {
      * 1. 构建  Retrofit 实例
      */
     private static final class RetrofitHolder {
+
         private static final String BASE_URI = Latte.getConfigurationByKey(ConfigType.API_HOST
                 .name());
-        //创建 Retrofit  实例
+        /**
+         * Retrofit的创建
+         */
         private static final Retrofit RETROFIT_CLIENT = new Retrofit.Builder()
                 .baseUrl(BASE_URI)
                 .client(OKHttpHolder.OK_HTTP_CLIENT)
-                .addConverterFactory(ScalarsConverterFactory.create())//String解析器
-                .addConverterFactory(GsonConverterFactory.create())//Json解析器
+                //String解析器
+                .addConverterFactory(ScalarsConverterFactory.create())
+                //Json解析器
+                .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }
 

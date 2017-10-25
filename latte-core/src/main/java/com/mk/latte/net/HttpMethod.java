@@ -5,7 +5,6 @@ package com.mk.latte.net;
  */
 
 public enum HttpMethod {
-    TEST,
     GET,
     POST,
     POST_RAW,

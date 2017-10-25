@@ -9,6 +9,7 @@ import com.mk.latte.app.ConfigType;
 import com.mk.latte.app.Latte;
 
 /**
+ * 测试网络
  * Created by lenovo on 2017/10/19.
  */
 

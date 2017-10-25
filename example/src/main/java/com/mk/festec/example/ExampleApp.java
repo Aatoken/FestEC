@@ -12,6 +12,7 @@ import com.mk.latte.ec.icon.FontModule;
 
 public class ExampleApp extends Application {
 
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -19,7 +20,9 @@ public class ExampleApp extends Application {
                 .withContext(this)
                 .withIcon(new FontAwesomeModule())
                 .withIcon(new FontModule())
-                .withApiHost("http://news.baidu.com")
+                //电脑服务地址：http://192.168.33.2:1207/AppService/ReadMe.txt
+                //新闻测试 http://news.baidu.com/
+                .withApiHost("http://192.168.33.2:1207/AppService/")
                 .configure();
     }
 
