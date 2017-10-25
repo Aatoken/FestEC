@@ -213,6 +213,7 @@ public class RestClientBuilder {
         return this;
     }
 
+
     public final RestClient build() {
         return new RestClient(mUrl, PARAMS,
                 mIRequest, mISuccess, mIFailure, mIError,
