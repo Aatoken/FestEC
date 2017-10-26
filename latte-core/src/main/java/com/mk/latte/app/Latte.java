@@ -40,7 +40,7 @@ public class Latte {
      * @return Context
      */
     public static Context getApplicationContext() {
-        return (Context) getConfigurationByKey(ConfigType.APPLICATION_CONTEXT.name());
+        return (Context) getConfigurationByKey(ConfigKeys.APPLICATION_CONTEXT.name());
     }
 
 

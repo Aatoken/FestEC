@@ -1,11 +1,13 @@
 package com.mk.latte.net;
 
-import com.mk.latte.app.ConfigType;
+import com.mk.latte.app.ConfigKeys;
 import com.mk.latte.app.Latte;
 
+import java.util.ArrayList;
 import java.util.WeakHashMap;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -31,6 +33,7 @@ public final class RestCreator {
 
     /**
      * 获取 PARAMS
+     *
      * @return
      */
     public static WeakHashMap<String, Object> getParams() {
@@ -43,7 +46,7 @@ public final class RestCreator {
      */
     private static final class RetrofitHolder {
 
-        private static final String BASE_URI = Latte.getConfigurationByKey(ConfigType.API_HOST
+        private static final String BASE_URI = Latte.getConfigurationByKey(ConfigKeys.API_HOST
                 .name());
         /**
          * Retrofit的创建
@@ -64,7 +67,20 @@ public final class RestCreator {
      */
     private static final class OKHttpHolder {
         private static final int TIME_OUT = 60;
-        private static final OkHttpClient OK_HTTP_CLIENT = new OkHttpClient.Builder()
+        private static final OkHttpClient.Builder BUILDER = new OkHttpClient.Builder();
+        private static final ArrayList<Interceptor> INTERCEPTORS = Latte.getConfigurationByKey
+                (ConfigKeys.INTERCEPTOR.name());
+
+        private static OkHttpClient.Builder addInterceptor() {
+            if (INTERCEPTORS != null && INTERCEPTORS.isEmpty()) {
+                for (Interceptor interceptor : INTERCEPTORS) {
+                    BUILDER.addInterceptor(interceptor);
+                }
+            }
+            return BUILDER;
+        }
+
+        private static final OkHttpClient OK_HTTP_CLIENT = addInterceptor()
                 .connectTimeout(TIME_OUT, TimeUnit.SECONDS)
                 .build();
 

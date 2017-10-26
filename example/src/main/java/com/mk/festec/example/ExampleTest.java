@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.Toast;
 
-import com.mk.latte.app.ConfigType;
+import com.mk.latte.app.ConfigKeys;
 import com.mk.latte.app.Latte;
 
 /**
@@ -19,7 +19,7 @@ public class ExampleTest extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        String apiHost = Latte.getConfigurationByKey(ConfigType.API_HOST.name());
+        String apiHost = Latte.getConfigurationByKey(ConfigKeys.API_HOST.name());
         Toast.makeText(this,apiHost , Toast.LENGTH_SHORT).show();
 
     }

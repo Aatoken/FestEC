@@ -16,8 +16,6 @@ public final class LoaderCreator {
 
     private static final WeakHashMap<String, Indicator> LOADING_MAP = new WeakHashMap<>();
 
-
-
     static AVLoadingIndicatorView create(Context context,String type) {
         final AVLoadingIndicatorView avLoadingIndicatorView = new AVLoadingIndicatorView(context);
         if (LOADING_MAP.get(type) == null) {
