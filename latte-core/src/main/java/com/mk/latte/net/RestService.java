@@ -1,10 +1,10 @@
 package com.mk.latte.net;
 
-import java.util.ResourceBundle;
 import java.util.WeakHashMap;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.FieldMap;
@@ -55,7 +55,7 @@ public interface RestService {
      */
     @Streaming
     @GET
-    Call<ResourceBundle> download(@Url String url, @QueryMap WeakHashMap<String,Object> params);
+    Call<ResponseBody> download(@Url String url, @QueryMap WeakHashMap<String,Object> params);
 
     @Multipart
     @POST

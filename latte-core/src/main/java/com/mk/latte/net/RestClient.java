@@ -7,6 +7,7 @@ import com.mk.latte.net.callback.IFailure;
 import com.mk.latte.net.callback.IRequest;
 import com.mk.latte.net.callback.ISuccess;
 import com.mk.latte.net.callback.RequestCallBacks;
+import com.mk.latte.net.download.DownLoadHandler;
 import com.mk.latte.ui.LatteLoader;
 import com.mk.latte.ui.LoaderStyle;
 
@@ -47,13 +48,19 @@ public class RestClient {
     /**
      * 初始化赋值
      *
-     * @param Url     路径
-     * @param Params  参数集合
-     * @param request 请求
-     * @param success 请求成功
-     * @param failure 请求失败
-     * @param error   请求错误
-     * @param body
+     * @param Url         路径
+     * @param Params      参数集合
+     * @param request     请求
+     * @param success     请求成功
+     * @param failure     请求失败
+     * @param error       请求错误
+     * @param body        主体
+     * @param file        文件
+     * @param downloadDir 下载目录
+     * @param extension   后缀名
+     * @param name        下载的文件名
+     * @param loaderStyle 加载控件样式
+     * @param context     上下文
      */
     public RestClient(String Url,
                       WeakHashMap<String, Object> Params,
@@ -131,8 +138,8 @@ public class RestClient {
                 final RequestBody requestBody = RequestBody.create(MediaType.parse(MultipartBody
                         .FORM.toString()), FILE);
                 final MultipartBody.Part body = MultipartBody.Part.createFormData("file", FILE
-                        .getName(),requestBody);
-                call=RestCreator.getRestService().upload(URL,body);
+                        .getName(), requestBody);
+                call = RestCreator.getRestService().upload(URL, body);
                 break;
             default:
                 break;
@@ -186,6 +193,18 @@ public class RestClient {
 
     public final void delete() {
         request(HttpMethod.DELETE);
+    }
+
+    public final void upload() {
+        request(HttpMethod.UPLOAD);
+    }
+
+
+    public final void download() {
+        new DownLoadHandler(URL, PARAMS,
+                REQUEST, SUCCESS, FAILURE, ERROR,
+                DOWNLOAD_DIR, EXTENSION, NAME).handlerDownLoad();
+
     }
 
 
