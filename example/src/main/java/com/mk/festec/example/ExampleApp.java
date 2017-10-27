@@ -22,13 +22,12 @@ public class ExampleApp extends Application {
                 .withIcon(new FontAwesomeModule())
                 .withIcon(new FontModule())
                 .withLoaderDelayed(1000)
-                //电脑服务地址：http://192.168.33.2:1207/AppService/ReadMe.txt
+                //电脑服务地址：http://192.168.33.2:1210/RestServer/api/index.php
                 //新闻测试 http://news.baidu.com/
-                .withApiHost("http://192.168.33.2:1207/AppService/")
+                .withApiHost("http://192.168.33.2:1210/RestServer/api/")
                 .withInterceptor(new DebugInterceptor("test", R.raw.test))
                 .configure();
     }
-
 
 
 }

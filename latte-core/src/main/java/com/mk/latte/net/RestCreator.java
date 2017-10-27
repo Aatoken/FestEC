@@ -2,6 +2,7 @@ package com.mk.latte.net;
 
 import com.mk.latte.app.ConfigKeys;
 import com.mk.latte.app.Latte;
+import com.mk.latte.net.rx.RxRestService;
 
 import java.util.ArrayList;
 import java.util.WeakHashMap;
@@ -10,6 +11,7 @@ import java.util.concurrent.TimeUnit;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
@@ -42,7 +44,7 @@ public final class RestCreator {
 
 
     /**
-     * 1. 构建  Retrofit 实例
+     * 构建全局Retrofit客户端
      */
     private static final class RetrofitHolder {
 
@@ -58,12 +60,14 @@ public final class RestCreator {
                 .addConverterFactory(ScalarsConverterFactory.create())
                 //Json解析器
                 .addConverterFactory(GsonConverterFactory.create())
+                //RxJava
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
     }
 
 
     /**
-     * OkHttp
+     * 构建OkHttp
      */
     private static final class OKHttpHolder {
         private static final int TIME_OUT = 60;
@@ -88,22 +92,28 @@ public final class RestCreator {
 
 
     /**
-     * 2. 获取网络请求的接口实例
-     *
-     * @return
-     */
-    public static RestService getRestService() {
-        return RestServiceHolder.REST_SERVICE;
-    }
-
-    /**
-     * 内部类 创建 网络请求接口 的实例
+     *Service接口
      */
     private static final class RestServiceHolder {
         private static final RestService REST_SERVICE = RetrofitHolder.RETROFIT_CLIENT
                 .create(RestService.class);
     }
+    public static RestService getRestService() {
+        return RestServiceHolder.REST_SERVICE;
+    }
 
+
+
+    /**
+     *RxService接口
+     */
+    private static final class RxRestServiceHolder {
+        private static final RxRestService REST_SERVICE = RetrofitHolder.RETROFIT_CLIENT
+                .create(RxRestService.class);
+    }
+    public static RxRestService getRxRestService() {
+        return RxRestServiceHolder.REST_SERVICE;
+    }
 
 }
 

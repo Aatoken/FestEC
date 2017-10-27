@@ -8,8 +8,8 @@ import com.mk.latte.net.callback.IRequest;
 import com.mk.latte.net.callback.ISuccess;
 import com.mk.latte.net.callback.RequestCallBacks;
 import com.mk.latte.net.download.DownLoadHandler;
-import com.mk.latte.ui.LatteLoader;
-import com.mk.latte.ui.LoaderStyle;
+import com.mk.latte.ui.loader.LatteLoader;
+import com.mk.latte.ui.loader.LoaderStyle;
 
 import java.io.File;
 import java.util.WeakHashMap;
@@ -139,7 +139,7 @@ public class RestClient {
                         .FORM.toString()), FILE);
                 final MultipartBody.Part body = MultipartBody.Part.createFormData("file", FILE
                         .getName(), requestBody);
-                call = RestCreator.getRestService().upload(URL, body);
+                call = service.upload(URL, body);
                 break;
             default:
                 break;

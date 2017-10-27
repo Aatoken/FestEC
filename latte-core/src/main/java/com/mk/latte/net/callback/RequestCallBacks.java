@@ -3,8 +3,8 @@ package com.mk.latte.net.callback;
 
 import android.os.Handler;
 
-import com.mk.latte.ui.LatteLoader;
-import com.mk.latte.ui.LoaderStyle;
+import com.mk.latte.ui.loader.LatteLoader;
+import com.mk.latte.ui.loader.LoaderStyle;
 
 import retrofit2.Call;
 import retrofit2.Callback;

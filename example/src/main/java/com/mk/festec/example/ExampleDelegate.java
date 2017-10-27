@@ -38,7 +38,7 @@ public class ExampleDelegate extends LatteDelegate {
     private void testRestClient() {
 
         RestClient.builder()
-                .url("ReadMe.txt")
+                .url("index.php")
                 .loader(getContext())
                 .success(new ISuccess() {
                     @Override

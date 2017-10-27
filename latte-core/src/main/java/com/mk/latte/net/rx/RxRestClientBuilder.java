@@ -1,7 +1,8 @@
-package com.mk.latte.net;
+package com.mk.latte.net.rx;
 
 import android.content.Context;
 
+import com.mk.latte.net.RestCreator;
 import com.mk.latte.net.callback.IError;
 import com.mk.latte.net.callback.IFailure;
 import com.mk.latte.net.callback.IRequest;
@@ -19,7 +20,7 @@ import okhttp3.RequestBody;
  * @date 2017/10/17
  */
 
-public class RestClientBuilder {
+public class RxRestClientBuilder {
     /**
      * 使用final 必须给赋值
      */
@@ -38,7 +39,7 @@ public class RestClientBuilder {
     private Context mContext = null;
 
 
-    RestClientBuilder() {
+    RxRestClientBuilder() {
 
     }
 
@@ -48,7 +49,7 @@ public class RestClientBuilder {
      * @param url url
      * @return
      */
-    public final RestClientBuilder url(String url) {
+    public final RxRestClientBuilder url(String url) {
         this.mUrl = url;
         return this;
     }
@@ -59,7 +60,7 @@ public class RestClientBuilder {
      * @param params 参数集合
      * @return
      */
-    public final RestClientBuilder params(WeakHashMap<String, Object> params) {
+    public final RxRestClientBuilder params(WeakHashMap<String, Object> params) {
         PARAMS.putAll(params);
         return this;
     }
@@ -71,13 +72,13 @@ public class RestClientBuilder {
      * @param value
      * @return
      */
-    public final RestClientBuilder Params(String key, Object value) {
+    public final RxRestClientBuilder Params(String key, Object value) {
         PARAMS.put(key, value);
         return this;
     }
 
 
-    public final RestClientBuilder raw(String raw) {
+    public final RxRestClientBuilder raw(String raw) {
         this.mBody = RequestBody.create(MediaType.parse("application/json;charset=UTF-8"), raw);
         return this;
     }
@@ -89,7 +90,7 @@ public class RestClientBuilder {
      * @param request
      * @return
      */
-    public final RestClientBuilder request(IRequest request) {
+    public final RxRestClientBuilder request(IRequest request) {
         this.mIRequest = request;
         return this;
     }
@@ -100,7 +101,7 @@ public class RestClientBuilder {
      * @param success 实现成功的回调方法
      * @return
      */
-    public final RestClientBuilder success(ISuccess success) {
+    public final RxRestClientBuilder success(ISuccess success) {
         this.mISuccess = success;
         return this;
     }
@@ -111,7 +112,7 @@ public class RestClientBuilder {
      * @param failure 实现失败的回调方法
      * @return
      */
-    public final RestClientBuilder failure(IFailure failure) {
+    public final RxRestClientBuilder failure(IFailure failure) {
         this.mIFailure = failure;
         return this;
     }
@@ -122,7 +123,7 @@ public class RestClientBuilder {
      * @param error 实现错误的回调方法
      * @return
      */
-    public final RestClientBuilder error(IError error) {
+    public final RxRestClientBuilder error(IError error) {
         this.mIError = error;
         return this;
     }
@@ -133,7 +134,7 @@ public class RestClientBuilder {
      * @param body 主体
      * @return
      */
-    public final RestClientBuilder body(RequestBody body) {
+    public final RxRestClientBuilder body(RequestBody body) {
         this.mBody = body;
         return this;
     }
@@ -145,7 +146,7 @@ public class RestClientBuilder {
      * @param style   dialog的样式
      * @return
      */
-    public final RestClientBuilder loader(Context context, LoaderStyle style) {
+    public final RxRestClientBuilder loader(Context context, LoaderStyle style) {
         this.mLoaderStyle = style;
         this.mContext = context;
         return this;
@@ -157,7 +158,7 @@ public class RestClientBuilder {
      * @param context 上下文
      * @return
      */
-    public final RestClientBuilder loader(Context context) {
+    public final RxRestClientBuilder loader(Context context) {
         this.mLoaderStyle = LoaderStyle.BallTrianglePathIndicator;
         this.mContext = context;
         return this;
@@ -165,60 +166,63 @@ public class RestClientBuilder {
 
     /**
      * 下载文件
+     *
      * @param file 文件
      * @return
      */
-    public final RestClientBuilder file(File file) {
+    public final RxRestClientBuilder file(File file) {
         this.mFile = file;
         return this;
     }
 
     /**
      * 下载文件
+     *
      * @param filePath 文件的路径
      * @return
      */
-    public final RestClientBuilder file(String filePath) {
+    public final RxRestClientBuilder file(String filePath) {
         this.mFile = new File(filePath);
         return this;
     }
 
     /**
      * 文件目录
+     *
      * @param dir 目录
      * @return
      */
-    public final RestClientBuilder dir(String dir) {
+    public final RxRestClientBuilder dir(String dir) {
         this.mDownloadDir = dir;
         return this;
     }
 
     /**
      * 文件后缀名
+     *
      * @param extension 文件后缀名
      * @return
      */
-    public final RestClientBuilder extension(String extension) {
+    public final RxRestClientBuilder extension(String extension) {
         this.mExtension = extension;
         return this;
     }
 
     /**
      * 文件名称
+     *
      * @param name 文件名称
      * @return
      */
-    public final RestClientBuilder name(String name) {
+    public final RxRestClientBuilder name(String name) {
         this.mName = name;
         return this;
     }
 
 
-    public final RestClient build() {
-        return new RestClient(mUrl, PARAMS,
-                mIRequest, mISuccess, mIFailure, mIError,
+    public final RxRestClient build() {
+        return new RxRestClient(mUrl, PARAMS,
                 mBody, mFile,
-                mDownloadDir,mExtension,mName,
                 mLoaderStyle, mContext);
     }
 

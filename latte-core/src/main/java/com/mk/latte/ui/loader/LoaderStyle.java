@@ -1,4 +1,4 @@
-package com.mk.latte.ui;
+package com.mk.latte.ui.loader;
 
 /**
  * 加载样式
