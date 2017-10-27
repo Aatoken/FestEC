@@ -6,7 +6,7 @@ import android.support.v7.app.ActionBar;
 
 import com.mk.latte.activities.ProxyActivity;
 import com.mk.latte.delegates.LatteDelegate;
-import com.mk.latte.ec.launcher.LauncherDelegate;
+import com.mk.latte.ec.sign.SignUpDelegate;
 
 /**
  * 单activity 的跟Activity
@@ -25,7 +25,7 @@ public class ExampleActivity extends ProxyActivity {
 
     @Override
     public LatteDelegate setRootDelegate() {
-        return new LauncherDelegate();
+        return new SignUpDelegate();
     }
 
 

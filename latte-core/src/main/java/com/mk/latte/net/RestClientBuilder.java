@@ -71,7 +71,7 @@ public class RestClientBuilder {
      * @param value
      * @return
      */
-    public final RestClientBuilder Params(String key, Object value) {
+    public final RestClientBuilder params(String key, Object value) {
         PARAMS.put(key, value);
         return this;
     }

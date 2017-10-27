@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
 import com.mk.latte.app.Latte;
+import com.mk.latte.ec.database.DatabaseManager;
 import com.mk.latte.ec.icon.FontModule;
 import com.mk.latte.net.interceptors.DebugInterceptor;
 
@@ -17,6 +18,7 @@ public class ExampleApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        //初始化 配置参数
         Latte.init()
                 .withContext(this)
                 .withIcon(new FontAwesomeModule())
@@ -27,6 +29,11 @@ public class ExampleApp extends Application {
                 .withApiHost("http://192.168.33.2:1210/RestServer/api/")
                 .withInterceptor(new DebugInterceptor("test", R.raw.test))
                 .configure();
+
+        //初始化数据库
+        DatabaseManager.getInstance().init(this);
+
+
     }
 
 
