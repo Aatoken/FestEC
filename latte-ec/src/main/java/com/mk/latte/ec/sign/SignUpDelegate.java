@@ -61,8 +61,7 @@ public class SignUpDelegate extends LatteDelegate {
                         public void onSuccess(String response) {
                             LatteLogger.json("USER_PROFILE", response);
                             SignHandler.onSingUp(response);
-                            Toast.makeText(getContext(), SignHandler.getUserProfile(), Toast
-                                    .LENGTH_SHORT).show();
+
                         }
                     })
                     .failure(new IFailure() {
