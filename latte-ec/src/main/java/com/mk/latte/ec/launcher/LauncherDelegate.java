@@ -1,13 +1,18 @@
 package com.mk.latte.ec.launcher;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
 
+import com.mk.latte.app.AccountManager;
+import com.mk.latte.app.IUserChecker;
 import com.mk.latte.delegates.LatteDelegate;
 import com.mk.latte.ec.R;
 import com.mk.latte.ec.R2;
+import com.mk.latte.ui.launcher.ILauncherListener;
+import com.mk.latte.ui.launcher.OnLauncherFinishTag;
 import com.mk.latte.ui.launcher.ScrollLauncherTag;
 import com.mk.latte.util.storage.LattePreference;
 import com.mk.latte.util.timer.BaseTimerTask;
@@ -35,6 +40,21 @@ public class LauncherDelegate extends LatteDelegate implements ITimerListener {
     private Timer mTimer = null;
     @BindView(R2.id.tv_launcher_timer)
     AppCompatTextView mTvTimer = null;
+
+    private ILauncherListener mILauncherListener;
+
+    /**
+     * 用于接口回调
+     *
+     * @param activity
+     */
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (activity instanceof ILauncherListener) {
+            mILauncherListener = (ILauncherListener) activity;
+        }
+    }
 
     /**
      * 手动点击取消倒计时
@@ -99,12 +119,29 @@ public class LauncherDelegate extends LatteDelegate implements ITimerListener {
         if (!LattePreference.getAppFlag(ScrollLauncherTag.HAS_FIRST_LAUNCHER_APP.name())) {
             ToastUtils.showToast(getContext(), "第一次启动！");
             //显示 滑动启动页面
-            start(new LauncherScrollDelegate(), SINGLETASK);
+            getSupportDelegate().start(new LauncherScrollDelegate(), SINGLETASK);
 
         } else {
             //用户是否登录了 APP
-            ToastUtils.showToast(getContext(), "不是第一次启动！");
+            AccountManager.checkAccount(new IUserChecker() {
+                @Override
+                public void onSignIn() {
+                    if (mILauncherListener != null) {
+                        mILauncherListener.onLauncherFinish(OnLauncherFinishTag.SIGNED);
+                    }
+                }
+
+                @Override
+                public void onNotSignIn() {
+                    if (mILauncherListener != null) {
+                        mILauncherListener.onLauncherFinish(OnLauncherFinishTag.NOT_SIGNED);
+                    }
+                }
+            });
+
         }
+
+
     }
 
 

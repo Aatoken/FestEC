@@ -1,11 +1,11 @@
 package com.mk.latte.ec.sign;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.util.Patterns;
 import android.view.View;
-import android.widget.Toast;
 
 import com.mk.latte.delegates.LatteDelegate;
 import com.mk.latte.ec.R;
@@ -41,6 +41,14 @@ public class SignUpDelegate extends LatteDelegate {
 
     private ISignListener mISignListener = null;
 
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if(activity instanceof ISignListener)
+        {
+            mISignListener=(ISignListener)activity;
+        }
+    }
 
     /**
      * 注册
@@ -59,8 +67,9 @@ public class SignUpDelegate extends LatteDelegate {
                     .success(new ISuccess() {
                         @Override
                         public void onSuccess(String response) {
+
                             LatteLogger.json("USER_PROFILE", response);
-                            SignHandler.onSingUp(response);
+                            SignHandler.onSingUp(response,mISignListener);
 
                         }
                     })
@@ -80,7 +89,7 @@ public class SignUpDelegate extends LatteDelegate {
      */
     @OnClick(R2.id.tv_link_sign_in)
     void onClickLink() {
-        Toast.makeText(getContext(), "登录", Toast.LENGTH_SHORT).show();
+        getSupportDelegate().start(new SignInDelegate());
     }
 
 

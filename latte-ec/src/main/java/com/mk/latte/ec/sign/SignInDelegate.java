@@ -1,5 +1,6 @@
 package com.mk.latte.ec.sign;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
@@ -10,6 +11,11 @@ import android.widget.Toast;
 import com.mk.latte.delegates.LatteDelegate;
 import com.mk.latte.ec.R;
 import com.mk.latte.ec.R2;
+import com.mk.latte.net.RestClient;
+import com.mk.latte.net.callback.IFailure;
+import com.mk.latte.net.callback.ISuccess;
+import com.mk.latte.util.log.LatteLogger;
+import com.mk.latte.util.toast.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -27,11 +33,48 @@ public class SignInDelegate extends LatteDelegate {
     @BindView(R2.id.edit_sign_in_password)
     TextInputEditText mPassword = null;
 
+
     private ISignListener mISignListener = null;
 
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if(activity instanceof ISignListener)
+        {
+            mISignListener=(ISignListener)activity;
+        }
+    }
+
+    /**
+     * 登录点击事件
+     */
     @OnClick(R2.id.btn_sign_in)
     void onClickSignIn() {
-        Toast.makeText(getContext(), "登录", Toast.LENGTH_SHORT).show();
+        if (checkForm()) {
+
+            RestClient.builder()
+                    .url("user_profile.php")
+                    .params("email", mEmail.getText().toString())
+                    .params("password", mPassword.getText().toString())
+                    .success(new ISuccess() {
+                        @Override
+                        public void onSuccess(String response) {
+                            //打印日志
+                            LatteLogger.json("USER_PROFILE", response);
+                            //登录
+                            SignHandler.onSingIn(response,mISignListener);
+
+                        }
+                    })
+                    .failure(new IFailure() {
+                        @Override
+                        public void onFailure() {
+                            ToastUtils.showToast(getContext(),"注册失败");
+                        }
+                    })
+                    .build()
+                    .post();
+        }
     }
 
 
@@ -43,7 +86,7 @@ public class SignInDelegate extends LatteDelegate {
 
     @OnClick(R2.id.tv_link_sign_up)
     void onClickLink() {
-        Toast.makeText(getContext(), "注册", Toast.LENGTH_SHORT).show();
+        getSupportDelegate().start(new SignUpDelegate());
     }
 
 

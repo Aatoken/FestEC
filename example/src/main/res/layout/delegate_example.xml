@@ -6,7 +6,7 @@
 
 
    <com.joanzapata.iconify.widget.IconTextView
-       android:text="{fa-beer}"
+       android:text="ExampleDelegate"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"/>
 
