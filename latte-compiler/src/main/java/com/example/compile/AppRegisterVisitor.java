@@ -47,7 +47,7 @@ public class AppRegisterVisitor  extends SimpleAnnotationValueVisitor7<Void, Voi
                         .build();
 
         final JavaFile javaFile = JavaFile.builder(mPackageName + ".wxapi", targetActivity)
-                .addFileComment("微信广播接收器")
+                .addFileComment("")
                 .build();
         try {
             javaFile.writeTo(FILER);
