@@ -1,6 +1,7 @@
 package com.mk.latte.app;
 
 import android.content.Context;
+import android.os.Handler;
 
 import com.joanzapata.iconify.IconFontDescriptor;
 import com.joanzapata.iconify.Iconify;
@@ -31,11 +32,17 @@ public class Configurator {
      * 拦截器集合
      */
     private static final ArrayList<Interceptor> INTERCEPTORS=new ArrayList<>();
+    /**
+     * handler
+     */
+    private static final Handler HANDLER = new Handler();
 
     private Configurator() {
         //初始化配置
         //设置为false表示配置未完成
         putConfiguration(ConfigKeys.CONFIG_READY.name(), false);
+        //初始化存入  handler
+        LATTE_CONFIGS.put(ConfigKeys.HANDLER.name(), HANDLER);
     }
 
     /**

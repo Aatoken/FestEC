@@ -14,20 +14,22 @@ import com.mk.latte.ui.launcher.ILauncherListener;
 import com.mk.latte.ui.launcher.OnLauncherFinishTag;
 import com.mk.latte.util.toast.ToastUtils;
 
+import static me.yokeyword.fragmentation.ISupportFragment.SINGLETASK;
+
 /**
  * 单activity 的跟Activity
+ *
  * @author lenovo
  */
 public class ExampleActivity extends ProxyActivity
-        implements ISignListener,ILauncherListener {
+        implements ISignListener, ILauncherListener {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //取消掉 actionBar
-        ActionBar actionBar=getSupportActionBar();
-        if(actionBar!=null)
-        {
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
             actionBar.hide();
         }
     }
@@ -40,30 +42,35 @@ public class ExampleActivity extends ProxyActivity
 
     @Override
     public void onSignInSuccess() {
-        ToastUtils.showToast(this,"登录成功");
+        ToastUtils.showToast(this, "登录成功");
     }
 
     @Override
     public void onSignUpSuccess() {
-        ToastUtils.showToast(this,"注册成功");
+        ToastUtils.showToast(this, "注册成功");
     }
 
     /**
      * 界面启动回调
+     *
      * @param tag
      */
     @Override
     public void onLauncherFinish(OnLauncherFinishTag tag) {
         switch (tag) {
             case SIGNED:
-                ToastUtils.showToast(this,"启动结束,用户登录了");
+                ToastUtils.showToast(this, "启动结束,用户登录了");
                 //跳转到首页
-                getSupportDelegate().startWithPop(new EcBottomDelegate());
+                //startWithPop(new EcBottomDelegate());
+                getSupportDelegate().start(new EcBottomDelegate(), SINGLETASK);
+
                 break;
             case NOT_SIGNED:
-                ToastUtils.showToast(this,"启动结束,用户未登录");
+                ToastUtils.showToast(this, "启动结束,用户未登录");
                 //跳转到登录界面
-                getSupportDelegate().startWithPop(new SignInDelegate());
+                //startWithPop(new SignInDelegate());
+                getSupportDelegate().start(new SignInDelegate(), SINGLETASK);
+
                 break;
             default:
                 break;

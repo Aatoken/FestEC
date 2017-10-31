@@ -1,6 +1,7 @@
 package com.mk.latte.app;
 
 import android.content.Context;
+import android.os.Handler;
 
 /**
  * Created by lenovo on 2017/10/15.
@@ -41,6 +42,15 @@ public class Latte {
      */
     public static Context getApplicationContext() {
         return (Context) getConfigurationByKey(ConfigKeys.APPLICATION_CONTEXT.name());
+    }
+
+
+    /**
+     * 获取handler
+     * @return
+     */
+    public static Handler getHandler() {
+        return getConfigurationByKey(ConfigKeys.HANDLER.name());
     }
 
 
