@@ -50,7 +50,6 @@ public class IndexDelegate extends BottomItemDelegate {
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light
         );
-
         mRefreshLayout.setProgressViewOffset(true, 120, 300);
     }
 
@@ -80,9 +79,8 @@ public class IndexDelegate extends BottomItemDelegate {
         final  int spanSize=4;
         final GridLayoutManager manager=new GridLayoutManager(getContext(),spanSize);
         mRecyclerView.setLayoutManager(manager);
+
     }
-
-
 
 
     @Override

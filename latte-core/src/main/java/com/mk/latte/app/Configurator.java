@@ -5,6 +5,8 @@ import android.os.Handler;
 
 import com.joanzapata.iconify.IconFontDescriptor;
 import com.joanzapata.iconify.Iconify;
+import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -67,6 +69,8 @@ public class Configurator {
     public final void configure() {
         //初始化图标
         initIcons();
+        //logger
+        Logger.addLogAdapter(new AndroidLogAdapter());
         putConfiguration(ConfigKeys.CONFIG_READY.name(), true);
     }
 
@@ -92,6 +96,7 @@ public class Configurator {
             }
         }
     }
+
 
 
     /**

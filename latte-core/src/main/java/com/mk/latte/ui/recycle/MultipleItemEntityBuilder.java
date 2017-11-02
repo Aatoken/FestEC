@@ -13,14 +13,14 @@ public class MultipleItemEntityBuilder {
     private static final LinkedHashMap<Object, Object> FIELDS = new LinkedHashMap<>();
 
 
-      MultipleItemEntityBuilder() {
+    MultipleItemEntityBuilder() {
         //先清除之前的数据
         FIELDS.clear();
     }
 
 
     public final MultipleItemEntityBuilder setItemType(int itemType) {
-        FIELDS.put(MultipleFields.ITEM_TYPE.name(), itemType);
+        FIELDS.put(MultipleFields.ITEM_TYPE, itemType);
         return this;
     }
 

@@ -1,5 +1,7 @@
 package com.mk.latte.ec.main.index;
 
+import android.util.Log;
+
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -26,10 +28,11 @@ public class IndexDataConverter extends DataConverter {
         {
             final JSONObject data = dataArray.getJSONObject(i);
 
-            final String imageUrl = data.getString("imageUrl");
-            final String text = data.getString("text");
-            final int spanSize = data.getInteger("spanSize");
             final int id = data.getInteger("goodsId");
+            final int spanSize = data.getInteger("spanSize");
+
+            final String text = data.getString("text");
+            final String imageUrl = data.getString("imageUrl");
             final JSONArray banners = data.getJSONArray("banners");
 
             final ArrayList<String> bannerImages = new ArrayList<>();
@@ -57,6 +60,7 @@ public class IndexDataConverter extends DataConverter {
                 }
             }
 
+           //转化数据填充到 Entity  中
             final MultipleItemEntity entity=MultipleItemEntity.builder()
                     .setField(MultipleFields.ITEM_TYPE,type)
                     .setField(MultipleFields.SPAN_SIZE,spanSize)
@@ -65,6 +69,8 @@ public class IndexDataConverter extends DataConverter {
                     .setField(MultipleFields.IMAGE_URL,imageUrl)
                     .setField(MultipleFields.BANNERS,bannerImages)
                     .build();
+            Log.d("note",id+"--"+type);
+            //添加到集合中
             ENTITIES.add(entity);
 
         }
