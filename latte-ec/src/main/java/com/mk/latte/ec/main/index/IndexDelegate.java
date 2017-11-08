@@ -14,6 +14,7 @@ import com.joanzapata.iconify.widget.IconTextView;
 import com.mk.latte.delegates.bottom.BottomItemDelegate;
 import com.mk.latte.ec.R;
 import com.mk.latte.ec.R2;
+import com.mk.latte.ec.main.EcBottomDelegate;
 import com.mk.latte.ui.recycle.BaseDecoration;
 import com.mk.latte.ui.refresh.RefreshHandler;
 
@@ -76,17 +77,16 @@ public class IndexDelegate extends BottomItemDelegate {
      * manager 的设置
      */
     private void initRecycleView() {
-        //将 宽分为4 份
-        final int spanSize = 4;
 
-        final GridLayoutManager manager = new GridLayoutManager(getContext(),
-                spanSize);
+        final GridLayoutManager manager = new GridLayoutManager(getContext(), 4);
         mRecyclerView.setLayoutManager(manager);
         //添加边框
         mRecyclerView.addItemDecoration(BaseDecoration.create(ContextCompat.getColor(getContext()
                 , R.color.app_background), 5));
-
-
+        //点击事件
+        //获得父容器
+        final EcBottomDelegate ecBottomDelegate=getParentDelegate();
+        mRecyclerView.addOnItemTouchListener(IndexItemClickListener.create(ecBottomDelegate));
 
     }
 

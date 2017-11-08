@@ -2,8 +2,17 @@ package com.mk.latte.delegates;
 
 /**
  *
- * Created by lenovo on 2017/10/16.
+ *
+ * @author lenovo
+ * @date 2017/10/16
  */
 
 public abstract class LatteDelegate extends PermissionCheckerDelegate {
+
+    @SuppressWarnings("unchecked")
+    public <T extends LatteDelegate> T getParentDelegate()
+    {
+        return (T) getParentFragment();
+    }
+
 }
