@@ -2,6 +2,7 @@ package com.mk.latte.ec.main.index;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.GridLayoutManager;
@@ -13,6 +14,7 @@ import com.joanzapata.iconify.widget.IconTextView;
 import com.mk.latte.delegates.bottom.BottomItemDelegate;
 import com.mk.latte.ec.R;
 import com.mk.latte.ec.R2;
+import com.mk.latte.ui.recycle.BaseDecoration;
 import com.mk.latte.ui.refresh.RefreshHandler;
 
 import butterknife.BindView;
@@ -40,7 +42,6 @@ public class IndexDelegate extends BottomItemDelegate {
     private RefreshHandler mRefreshHandler = null;
 
 
-
     /**
      * 初始化加载 layout
      */
@@ -55,6 +56,7 @@ public class IndexDelegate extends BottomItemDelegate {
 
     /**
      * 懒加载
+     *
      * @param savedInstanceState
      */
     @Override
@@ -73,12 +75,18 @@ public class IndexDelegate extends BottomItemDelegate {
      * 初始化 RecycleView
      * manager 的设置
      */
-    private void initRecycleView()
-    {
+    private void initRecycleView() {
         //将 宽分为4 份
-        final  int spanSize=4;
-        final GridLayoutManager manager=new GridLayoutManager(getContext(),spanSize);
+        final int spanSize = 4;
+
+        final GridLayoutManager manager = new GridLayoutManager(getContext(),
+                spanSize);
         mRecyclerView.setLayoutManager(manager);
+        //添加边框
+        mRecyclerView.addItemDecoration(BaseDecoration.create(ContextCompat.getColor(getContext()
+                , R.color.app_background), 5));
+
+
 
     }
 
@@ -94,8 +102,6 @@ public class IndexDelegate extends BottomItemDelegate {
         mRefreshHandler = RefreshHandler.create(mRefreshLayout, mRecyclerView, new
                 IndexDataConverter());
     }
-
-
 
 
 }

@@ -138,6 +138,8 @@ public class MultipleRecyclerAdapter extends BaseMultiItemQuickAdapter
     public void onItemClick(int position) {
 
     }
+
+
 }
 
 

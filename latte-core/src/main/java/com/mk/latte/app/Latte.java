@@ -14,7 +14,7 @@ public class Latte {
      * 初始化 Configurator 获取它的实例
      * @return
      */
-    private static Configurator getConfigurator() {
+    public static Configurator getConfigurator() {
         return Configurator.getInstance();
     }
 

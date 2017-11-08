@@ -1,5 +1,6 @@
 package com.mk.latte.app;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
 
@@ -108,6 +109,10 @@ public class Configurator {
         LATTE_CONFIGS.put(key,value);
     }
 
+    public final Configurator withActivity(Activity activity) {
+        LATTE_CONFIGS.put(ConfigKeys.ACTIVITY, activity);
+        return this;
+    }
 
     /**
      * 添加拦截器

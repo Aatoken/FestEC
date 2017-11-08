@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 
 import com.mk.latte.activities.ProxyActivity;
+import com.mk.latte.app.Latte;
 import com.mk.latte.delegates.LatteDelegate;
 import com.mk.latte.ec.launcher.LauncherDelegate;
 import com.mk.latte.ec.main.EcBottomDelegate;
@@ -32,6 +33,10 @@ public class ExampleActivity extends ProxyActivity
         if (actionBar != null) {
             actionBar.hide();
         }
+
+        Latte.getConfigurator().withActivity(this);
+        //沉浸式状态栏
+       // StatusBarCompat.translucentStatusBar(this,true);
     }
 
     @Override
