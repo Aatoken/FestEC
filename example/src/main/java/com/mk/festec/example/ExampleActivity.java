@@ -15,6 +15,8 @@ import com.mk.latte.ui.launcher.ILauncherListener;
 import com.mk.latte.ui.launcher.OnLauncherFinishTag;
 import com.mk.latte.util.toast.ToastUtils;
 
+import qiu.niorgai.StatusBarCompat;
+
 import static me.yokeyword.fragmentation.ISupportFragment.SINGLETASK;
 
 /**
@@ -36,7 +38,7 @@ public class ExampleActivity extends ProxyActivity
 
         Latte.getConfigurator().withActivity(this);
         //沉浸式状态栏
-       // StatusBarCompat.translucentStatusBar(this,true);
+        StatusBarCompat.translucentStatusBar(this, true);
     }
 
     @Override

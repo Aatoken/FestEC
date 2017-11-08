@@ -86,7 +86,10 @@ dependencies {
     compile ('com.github.niorgai:StatusBarCompat:2.1.4', {
         exclude group: 'com.android.support'
     })
-    //auto
-    provided 'com.google.auto.value:auto-value:1.4.1'
-    annotationProcessor "com.google.auto.value:auto-value:1.4.1"
+
+    //Google AutoValue
+    provided 'com.google.auto.value:auto-value:1.5'
+    annotationProcessor "com.google.auto.value:auto-value:1.5"
+
+
 }

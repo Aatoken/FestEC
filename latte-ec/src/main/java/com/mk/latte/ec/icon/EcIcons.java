@@ -3,12 +3,14 @@ package com.mk.latte.ec.icon;
 import com.joanzapata.iconify.Icon;
 
 /**
- * Created by lenovo on 2017/10/15.
+ *
+ * @author lenovo
+ * @date 2017/10/15
  */
 
 public enum EcIcons implements Icon {
-    icon_scan('\ue609'),
-    icon_ali_pay('\ue65e'),
+    icon_scan('\ue602'),
+    icon_ali_pay('\ue606'),
     icon_wx_pay('\ue615'),
     icon_qq_pay('\ue60d');
 
