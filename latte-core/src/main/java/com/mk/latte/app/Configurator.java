@@ -3,9 +3,12 @@ package com.mk.latte.app;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 
 import com.joanzapata.iconify.IconFontDescriptor;
 import com.joanzapata.iconify.Iconify;
+import com.mk.latte.delegates.web.event.Event;
+import com.mk.latte.delegates.web.event.EventManager;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 
@@ -110,7 +113,7 @@ public class Configurator {
     }
 
     public final Configurator withActivity(Activity activity) {
-        LATTE_CONFIGS.put(ConfigKeys.ACTIVITY, activity);
+        LATTE_CONFIGS.put(ConfigKeys.ACTIVITY.name(), activity);
         return this;
     }
 
@@ -128,7 +131,7 @@ public class Configurator {
 
     /**
      * 添加拦截器
-     * @param interceptor 拦截器
+     * @param interceptors 拦截器
      * @return
      */
     public final Configurator withInterceptors(ArrayList<Interceptor> interceptors) {
@@ -155,7 +158,7 @@ public class Configurator {
     }
 
     public final Configurator withLoaderDelayed(long delayed) {
-        LATTE_CONFIGS.put(ConfigKeys.LOADER_DELAYED, delayed);
+        LATTE_CONFIGS.put(ConfigKeys.LOADER_DELAYED.name(), delayed);
         return this;
     }
 
@@ -169,6 +172,45 @@ public class Configurator {
         ICONS.add(descriptor);
         return this;
     }
+
+
+    /**
+     * WebView
+     * @param name
+     * @return
+     */
+    public final Configurator withJavaScriptInterface(@NonNull String name) {
+       LATTE_CONFIGS.put(ConfigKeys.JAVASCRIPT_INTERFACE.name(),name);
+        return this;
+    }
+
+
+    /**
+     * WebView event 时间
+     * @param name
+     * @param event
+     * @return
+     */
+    public final Configurator withWebEevent(@NonNull String name, @NonNull Event event) {
+        final EventManager manager=EventManager.getInstance();
+        manager.addEvent(name,event);
+
+        return this;
+    }
+
+
+    /**
+     * WebHost
+     * @param webHost
+     * @return
+     */
+    public final Configurator withWebHost(String webHost) {
+        LATTE_CONFIGS.put(ConfigKeys.WEB_HOST.name(),webHost);
+        return this;
+    }
+
+
+
 
     /**
      * 检测配置是否完成
