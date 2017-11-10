@@ -16,7 +16,7 @@ public class WebViewInitializer {
     public WebView createWebView(WebView webView)
     {
         //调试 api>=19
-        //WebView.setWebContentsDebuggingEnabled(true);
+        WebView.setWebContentsDebuggingEnabled(true);
 
         //cookie
         final CookieManager cookieManager=CookieManager.getInstance();
