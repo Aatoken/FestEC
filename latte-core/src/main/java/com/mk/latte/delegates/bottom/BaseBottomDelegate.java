@@ -20,7 +20,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import butterknife.BindView;
-import me.yokeyword.fragmentation.SupportFragment;
+import me.yokeyword.fragmentation.ISupportFragment;
 
 /**
  * @author lenovo
@@ -150,9 +150,9 @@ public abstract class BaseBottomDelegate extends LatteDelegate
         }
 
         //获取索引的delegate
-        final SupportFragment[] delegateArray = ITEM_DELEGATES.toArray(new SupportFragment[size]);
+        final ISupportFragment[] delegateArray = ITEM_DELEGATES.toArray(new ISupportFragment[size]);
 
-        loadMultipleRootFragment(R.id.bottom_bar_delegate_container, mIndexDelegate, delegateArray);
+        getSupportDelegate().loadMultipleRootFragment(R.id.bottom_bar_delegate_container, mIndexDelegate, delegateArray);
 
 
     }
@@ -185,7 +185,7 @@ public abstract class BaseBottomDelegate extends LatteDelegate
                 .tv_bottom_item);
         itemIcon.setTextColor(mClickedColor);
         itemTitle.setTextColor(mClickedColor);
-        showHideFragment(ITEM_DELEGATES.get(tag),ITEM_DELEGATES.get(mCurrentDelegate));
+        getSupportDelegate().showHideFragment(ITEM_DELEGATES.get(tag),ITEM_DELEGATES.get(mCurrentDelegate));
         mCurrentDelegate=tag;
 
     }

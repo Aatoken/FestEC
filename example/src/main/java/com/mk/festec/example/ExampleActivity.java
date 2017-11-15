@@ -50,11 +50,13 @@ public class ExampleActivity extends ProxyActivity
     @Override
     public void onSignInSuccess() {
         ToastUtils.showToast(this, "登录成功");
+        getSupportDelegate().startWithPop(new EcBottomDelegate());
     }
 
     @Override
     public void onSignUpSuccess() {
         ToastUtils.showToast(this, "注册成功");
+        getSupportDelegate().startWithPop(new EcBottomDelegate());
     }
 
     /**

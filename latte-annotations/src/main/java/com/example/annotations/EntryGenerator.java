@@ -12,9 +12,6 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.SOURCE)
 public @interface EntryGenerator{
-
     String packageName();
-
-   Class<?> entryTemplete();
-
+    Class<?> entryTemplate();
 }
