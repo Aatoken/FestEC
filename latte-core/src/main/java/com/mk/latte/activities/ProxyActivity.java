@@ -13,23 +13,14 @@ import me.yokeyword.fragmentation.ISupportActivity;
 import me.yokeyword.fragmentation.SupportActivityDelegate;
 import me.yokeyword.fragmentation.anim.FragmentAnimator;
 
-/**
- * Created by lenovo on 2017/10/16.
- */
 
 /**
- * 引入的fragmentation 依赖包下的
  * @author lenovo
  */
-public abstract class ProxyActivity  extends AppCompatActivity implements ISupportActivity {
-
+public abstract class ProxyActivity extends AppCompatActivity implements ISupportActivity {
 
     private final SupportActivityDelegate DELEGATE = new SupportActivityDelegate(this);
 
-    /**
-     * 设置 根 Delegate
-     * @return
-     */
     public abstract LatteDelegate setRootDelegate();
 
     @Override
@@ -90,15 +81,4 @@ public abstract class ProxyActivity  extends AppCompatActivity implements ISuppo
     public void onBackPressed() {
         DELEGATE.onBackPressed();
     }
-
 }
-
-
-
-
-
-
-
-
-
-

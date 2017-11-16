@@ -1,5 +1,6 @@
 package com.mk.latte.ui.recycle;
 
+
 import android.support.v7.widget.GridLayoutManager;
 import android.view.View;
 import android.widget.ImageView;
@@ -11,7 +12,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.mk.latte.R;
+import com.mk.latte.ui.R;
 import com.mk.latte.ui.banner.BannerCreator;
 
 import java.util.ArrayList;
@@ -22,8 +23,7 @@ import java.util.List;
  * @data 2017/10/31
  */
 
-public class MultipleRecyclerAdapter extends BaseMultiItemQuickAdapter
-        <MultipleItemEntity, MultipleViewHolder>
+public class MultipleRecyclerAdapter extends BaseMultiItemQuickAdapter<MultipleItemEntity, MultipleViewHolder>
         implements BaseQuickAdapter.SpanSizeLookup, OnItemClickListener {
 
     /**

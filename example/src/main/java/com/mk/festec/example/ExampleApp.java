@@ -1,6 +1,6 @@
 package com.mk.festec.example;
 
-import android.app.Application;
+import android.support.multidex.MultiDexApplication;
 
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
 import com.mk.festec.example.event.TestEvent;
@@ -16,7 +16,7 @@ import com.mk.latte.net.rx.AddCookieInterceptor;
  * @date 2017/10/15
  */
 
-public class ExampleApp extends Application {
+public class ExampleApp extends MultiDexApplication {
 
 
     @Override
