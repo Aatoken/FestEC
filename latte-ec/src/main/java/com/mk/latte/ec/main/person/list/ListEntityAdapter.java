@@ -1,8 +1,12 @@
 package com.mk.latte.ec.main.person.list;
 
+import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.mk.latte.ec.R;
+import com.mk.latte.util.imgload.GlideUtil;
 
 import java.util.List;
 
@@ -12,7 +16,6 @@ import java.util.List;
  */
 
 public class ListEntityAdapter extends BaseMultiItemQuickAdapter<ListEntity,BaseViewHolder> {
-
 
     public ListEntityAdapter(List<ListEntity> data) {
         super(data);
@@ -29,6 +32,10 @@ public class ListEntityAdapter extends BaseMultiItemQuickAdapter<ListEntity,Base
                 helper.setText(R.id.tv_arrow_value, item.getValue());
                 break;
             case ListItemType.ITEM_AVATAR:
+                Glide.with(mContext)
+                        .load(item.getImageUrl())
+                        .apply(GlideUtil.RECYCLER_OPTIONS)
+                        .into((ImageView) helper.getView(R.id.img_arrow_avatar));
                 break;
             case ListItemType.ITEM_SWITCH:
                 break;

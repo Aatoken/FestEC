@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="android-iconify-ionicons-2.2.2">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.android/build-cache/230e92afe8e83fd01e3389895b162526e621f9cb/output/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.android/build-cache/230e92afe8e83fd01e3389895b162526e621f9cb/output/res" />
+      <root url="file://$USER_HOME$/.android/build-cache/92f0468d7c4b55ee19d31b5b2139101cbcd9c682/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/92f0468d7c4b55ee19d31b5b2139101cbcd9c682/output/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

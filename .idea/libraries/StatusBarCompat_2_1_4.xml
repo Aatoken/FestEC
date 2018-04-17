@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="StatusBarCompat-2.1.4">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.android/build-cache/fc1d32b5db09dad5f1baa6421e8a6fd5388e07d1/output/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.android/build-cache/fc1d32b5db09dad5f1baa6421e8a6fd5388e07d1/output/res" />
+      <root url="file://$USER_HOME$/.android/build-cache/bb31afa930e033e5960641d6dc8b23d7bdda2b34/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/bb31afa930e033e5960641d6dc8b23d7bdda2b34/output/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

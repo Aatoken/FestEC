@@ -76,6 +76,7 @@ public class Configurator {
         //logger
         Logger.addLogAdapter(new AndroidLogAdapter());
         putConfiguration(ConfigKeys.CONFIG_READY.name(), true);
+       // Utils.init(Latte.getApplication());
     }
 
     /**

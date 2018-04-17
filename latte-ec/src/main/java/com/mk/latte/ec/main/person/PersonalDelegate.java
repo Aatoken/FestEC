@@ -12,11 +12,14 @@ import com.mk.latte.ec.R2;
 import com.mk.latte.ec.main.person.list.ListEntity;
 import com.mk.latte.ec.main.person.list.ListEntityAdapter;
 import com.mk.latte.ec.main.person.list.ListItemType;
+import com.mk.latte.ec.main.person.order.OrderListDelegate;
+import com.mk.latte.ec.main.person.profile.UserProfileDelegate;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * @author lenovo
@@ -25,13 +28,42 @@ import butterknife.BindView;
 
 public class PersonalDelegate extends BottomItemDelegate {
 
+    public static final String ORDER_TYPE = "ORDER_TYPE";
+    private Bundle mArgs = null;
+
     @BindView(R2.id.rv_personal_setting)
     RecyclerView mRvSettings = null;
-
 
     @Override
     public Object setLayout() {
         return R.layout.delegate_personal;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mArgs=new Bundle();
+    }
+
+
+
+    private void startOrderListByType() {
+        final OrderListDelegate delegate=new OrderListDelegate();
+        delegate.setArguments(mArgs);
+        getParentDelegate().getSupportDelegate().start(delegate);
+    }
+
+    @OnClick(R2.id.tv_all_order)
+    void onClickAllOrder() {
+        mArgs.putString(ORDER_TYPE,"all");
+        startOrderListByType();
+    }
+
+
+
+    @OnClick(R2.id.img_user_avatar)
+    void onClickAvatar() {
+        getParentDelegate().getSupportDelegate().start(new UserProfileDelegate());
     }
 
     @Override
@@ -52,7 +84,6 @@ public class PersonalDelegate extends BottomItemDelegate {
         data.add(address);
         data.add(system);
 
-
         //设置RecyclerView
         final LinearLayoutManager manager = new LinearLayoutManager(getContext());
         mRvSettings.setLayoutManager(manager);
@@ -60,8 +91,6 @@ public class PersonalDelegate extends BottomItemDelegate {
         mRvSettings.setAdapter(adapter);
 
     }
-
-
 
 
 }

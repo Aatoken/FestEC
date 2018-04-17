@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="fragmentation-1.0.3">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.android/build-cache/5b3a90ff7aa56e3afa5a02b90e8937be8a700817/output/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.android/build-cache/5b3a90ff7aa56e3afa5a02b90e8937be8a700817/output/res" />
+      <root url="file://$USER_HOME$/.android/build-cache/a94bb4d8042992403c1971d5f1847869a402718b/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/a94bb4d8042992403c1971d5f1847869a402718b/output/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

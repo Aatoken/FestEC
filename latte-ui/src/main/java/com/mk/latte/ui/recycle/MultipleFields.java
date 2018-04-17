@@ -7,6 +7,7 @@ package com.mk.latte.ui.recycle;
 
 public enum MultipleFields {
     ITEM_TYPE,
+    TITLE,
     TEXT,
     IMAGE_URL,
     BANNERS,
@@ -14,5 +15,6 @@ public enum MultipleFields {
     ID,
     NAME,
     TAG,
-    ShopCartDataEntity
+    ShopCartDataEntity,
+
 }
