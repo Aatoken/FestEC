@@ -11,7 +11,6 @@ import com.mk.latte.net.interceptors.DebugInterceptor;
 import com.mk.latte.net.rx.AddCookieInterceptor;
 
 /**
- *
  * @author lenovo
  * @date 2017/10/15
  */
@@ -28,12 +27,14 @@ public class ExampleApp extends MultiDexApplication {
                 .withIcon(new FontAwesomeModule())
                 .withIcon(new FontModule())
                 .withLoaderDelayed(1000)
-                //电脑服务地址：http://192.168.33.2:1210/RestServer/api/index.php
-                //新闻测试 http://news.baidu.com/
-                .withApiHost("http://192.168.33.2:1210/RestServer/api/")
+                //本地/模拟器
+                //http://127.0.0.1:1314/RestServer/api/index.php
+                //http://192.168.75.2:1314/RestServer/api/index.php
+                //真机 http://192.168.1.105:1314/RestServer/api/index.php
+                .withApiHost("http://192.168.75.2:1314/RestServer/api/")
                 .withInterceptor(new DebugInterceptor("test", R.raw.test))
                 .withJavaScriptInterface("latte")
-                .withWebEevent("test",new TestEvent())
+                .withWebEevent("test", new TestEvent())
                 //添加Cookie同步拦截器
                 .withInterceptor(new AddCookieInterceptor())
                 .withWebHost("https://www.baidu.com/")
