@@ -9,8 +9,9 @@ import android.view.View;
 import com.mk.latte.delegates.bottom.BottomItemDelegate;
 import com.mk.latte.ec.R;
 import com.mk.latte.ec.R2;
-import com.mk.latte.ec.main.person.list.ListEntity;
-import com.mk.latte.ec.main.person.list.ListEntityAdapter;
+import com.mk.latte.ec.main.person.address.AddressDelegate;
+import com.mk.latte.ec.main.person.list.ListAdapter;
+import com.mk.latte.ec.main.person.list.ListBean;
 import com.mk.latte.ec.main.person.list.ListItemType;
 import com.mk.latte.ec.main.person.order.OrderListDelegate;
 import com.mk.latte.ec.main.person.profile.UserProfileDelegate;
@@ -68,28 +69,30 @@ public class PersonalDelegate extends BottomItemDelegate {
 
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
-        final ListEntity address = new ListEntity.Builder()
+        final ListBean address = new ListBean.Builder()
                 .setItemType(ListItemType.ITEM_NORMAL)
                 .setId(1)
+                .setDelegate(new AddressDelegate())
                 .setText("收货地址")
                 .build();
 
-        final ListEntity system = new ListEntity.Builder()
+        final ListBean system = new ListBean.Builder()
                 .setItemType(ListItemType.ITEM_NORMAL)
                 .setId(2)
                 .setText("系统设置")
                 .build();
 
-        final List<ListEntity> data = new ArrayList<>();
+        final List<ListBean> data = new ArrayList<>();
         data.add(address);
         data.add(system);
 
         //设置RecyclerView
         final LinearLayoutManager manager = new LinearLayoutManager(getContext());
         mRvSettings.setLayoutManager(manager);
-        final ListEntityAdapter adapter = new ListEntityAdapter(data);
+        final ListAdapter adapter = new ListAdapter(data);
         mRvSettings.setAdapter(adapter);
 
+        mRvSettings.addOnItemTouchListener(new PersonalClickListener(this));
     }
 
 

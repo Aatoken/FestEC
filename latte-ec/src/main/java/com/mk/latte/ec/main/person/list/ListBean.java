@@ -10,7 +10,7 @@ import com.mk.latte.delegates.LatteDelegate;
  * @data 2017/11/15
  */
 
-public class ListEntity implements MultiItemEntity {
+public class ListBean implements MultiItemEntity {
 
     private int mItemType = 0;
     private String mImageUrl = null;
@@ -20,10 +20,10 @@ public class ListEntity implements MultiItemEntity {
     private LatteDelegate mDelegate = null;
     private CompoundButton.OnCheckedChangeListener mOnCheckedChangeListener = null;
 
-    public ListEntity(int mItemType, String mImageUrl, String mText,
-                      String mValue, int mId,
-                      LatteDelegate mDelegate,
-                      CompoundButton.OnCheckedChangeListener mOnCheckedChangeListener) {
+    public ListBean(int mItemType, String mImageUrl, String mText,
+                    String mValue, int mId,
+                    LatteDelegate mDelegate,
+                    CompoundButton.OnCheckedChangeListener mOnCheckedChangeListener) {
         this.mItemType = mItemType;
         this.mImageUrl = mImageUrl;
         this.mText = mText;
@@ -116,8 +116,8 @@ public class ListEntity implements MultiItemEntity {
             return this;
         }
 
-        public ListEntity build() {
-            return new ListEntity(itemType, imageUrl, text, value, id, delegate, onCheckedChangeListener);
+        public ListBean build() {
+            return new ListBean(itemType, imageUrl, text, value, id, delegate, onCheckedChangeListener);
         }
     }
 

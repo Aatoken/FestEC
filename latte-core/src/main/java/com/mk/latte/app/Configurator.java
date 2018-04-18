@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 
+import com.blankj.utilcode.util.Utils;
 import com.joanzapata.iconify.IconFontDescriptor;
 import com.joanzapata.iconify.Iconify;
 import com.mk.latte.delegates.web.event.Event;
@@ -76,7 +77,7 @@ public class Configurator {
         //logger
         Logger.addLogAdapter(new AndroidLogAdapter());
         putConfiguration(ConfigKeys.CONFIG_READY.name(), true);
-       // Utils.init(Latte.getApplication());
+        Utils.init(Latte.getApplication());
     }
 
     /**

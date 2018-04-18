@@ -42,6 +42,9 @@ public class CameraHandler implements View.OnClickListener {
         return new CameraHandler(delegate);
     }
 
+    /**
+     * 创建弹出框
+     */
     public final void beginCameraDialog() {
         DIALOG.show();
         final Window window = DIALOG.getWindow();
@@ -113,7 +116,9 @@ public class CameraHandler implements View.OnClickListener {
         DELEGATE.startActivityForResult(intent, RequestCodes.TAKE_PHOTO);
     }
 
-
+    /**
+     * 获取本地照片
+     */
     private void pickPhoto() {
         final Intent intent = new Intent();
         intent.setType("image/*");

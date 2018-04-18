@@ -10,8 +10,8 @@ import android.view.View;
 import com.mk.latte.delegates.LatteDelegate;
 import com.mk.latte.ec.R;
 import com.mk.latte.ec.R2;
-import com.mk.latte.ec.main.person.list.ListEntity;
-import com.mk.latte.ec.main.person.list.ListEntityAdapter;
+import com.mk.latte.ec.main.person.list.ListBean;
+import com.mk.latte.ec.main.person.list.ListAdapter;
 import com.mk.latte.ec.main.person.list.ListItemType;
 import com.mk.latte.ec.main.person.settings.NameDelegate;
 
@@ -37,13 +37,13 @@ public class UserProfileDelegate extends LatteDelegate {
 
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, @NonNull View rootView) {
-        final ListEntity image = new ListEntity.Builder()
+        final ListBean image = new ListBean.Builder()
                 .setItemType(ListItemType.ITEM_AVATAR)
                 .setId(1)
                 .setImageUrl("http://i9.qhimg.com/t017d891ca365ef60b5.jpg")
                 .build();
 
-        final ListEntity name = new ListEntity.Builder()
+        final ListBean name = new ListBean.Builder()
                 .setItemType(ListItemType.ITEM_NORMAL)
                 .setId(2)
                 .setText("姓名")
@@ -51,21 +51,21 @@ public class UserProfileDelegate extends LatteDelegate {
                 .setValue("未设置姓名")
                 .build();
 
-        final ListEntity gender = new ListEntity.Builder()
+        final ListBean gender = new ListBean.Builder()
                 .setItemType(ListItemType.ITEM_NORMAL)
                 .setId(3)
                 .setText("性别")
                 .setValue("未设置性别")
                 .build();
 
-        final ListEntity birth = new ListEntity.Builder()
+        final ListBean birth = new ListBean.Builder()
                 .setItemType(ListItemType.ITEM_NORMAL)
                 .setId(4)
                 .setText("生日")
                 .setValue("未设置生日")
                 .build();
 
-        final List<ListEntity> data = new ArrayList<>();
+        final List<ListBean> data = new ArrayList<>();
         data.add(image);
         data.add(name);
         data.add(gender);
@@ -74,7 +74,7 @@ public class UserProfileDelegate extends LatteDelegate {
         //设置RecyclerView
         final LinearLayoutManager manager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(manager);
-        final ListEntityAdapter adapter = new ListEntityAdapter(data);
+        final ListAdapter adapter = new ListAdapter(data);
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.addOnItemTouchListener(new UserProfileClickListener(this));
 

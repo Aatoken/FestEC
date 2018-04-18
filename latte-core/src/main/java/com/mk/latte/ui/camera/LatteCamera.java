@@ -20,6 +20,10 @@ public class LatteCamera {
                         FileUtil.getFileNameByTime("IMG", "jpg")).getPath());
     }
 
+
+    /**
+     * 开始选择图片
+     */
     public static void start(PermissionCheckerDelegate delegate) {
         CameraHandler.create(delegate).beginCameraDialog();
     }

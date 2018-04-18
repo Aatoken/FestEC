@@ -15,9 +15,9 @@ import java.util.List;
  * @data 2017/11/15
  */
 
-public class ListEntityAdapter extends BaseMultiItemQuickAdapter<ListEntity,BaseViewHolder> {
+public class ListAdapter extends BaseMultiItemQuickAdapter<ListBean,BaseViewHolder> {
 
-    public ListEntityAdapter(List<ListEntity> data) {
+    public ListAdapter(List<ListBean> data) {
         super(data);
         addItemType(ListItemType.ITEM_NORMAL, R.layout.arrow_item_layout);
         addItemType(ListItemType.ITEM_AVATAR, R.layout.arrow_item_avatar);
@@ -25,7 +25,7 @@ public class ListEntityAdapter extends BaseMultiItemQuickAdapter<ListEntity,Base
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, ListEntity item) {
+    protected void convert(BaseViewHolder helper, ListBean item) {
         switch (helper.getItemViewType()) {
             case ListItemType.ITEM_NORMAL:
                 helper.setText(R.id.tv_arrow_text, item.getText());
