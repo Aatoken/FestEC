@@ -10,6 +10,8 @@ import com.mk.latte.ec.icon.FontModule;
 import com.mk.latte.net.interceptors.DebugInterceptor;
 import com.mk.latte.net.rx.AddCookieInterceptor;
 
+import cn.jpush.android.api.JPushInterface;
+
 /**
  * @author lenovo
  * @date 2017/10/15
@@ -43,6 +45,9 @@ public class ExampleApp extends MultiDexApplication {
         //初始化数据库
         DatabaseManager.getInstance().init(this);
 
+        //开启极光推送
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
 
     }
 

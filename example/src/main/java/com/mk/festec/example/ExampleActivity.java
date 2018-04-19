@@ -14,6 +14,7 @@ import com.mk.latte.ec.sign.SignInDelegate;
 import com.mk.latte.ui.launcher.ILauncherListener;
 import com.mk.latte.ui.launcher.OnLauncherFinishTag;
 
+import cn.jpush.android.api.JPushInterface;
 import qiu.niorgai.StatusBarCompat;
 
 /**
@@ -39,13 +40,13 @@ public class ExampleActivity  extends ProxyActivity implements
     @Override
     protected void onPause() {
         super.onPause();
-        //JPushInterface.onPause(this);
+        JPushInterface.onPause(this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        //JPushInterface.onResume(this);
+        JPushInterface.onResume(this);
     }
 
     @Override
