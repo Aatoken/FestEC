@@ -1,5 +1,6 @@
 package com.mk.festec.example;
 
+import android.support.annotation.Nullable;
 import android.support.multidex.MultiDexApplication;
 
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
@@ -9,6 +10,9 @@ import com.mk.latte.ec.database.DatabaseManager;
 import com.mk.latte.ec.icon.FontModule;
 import com.mk.latte.net.interceptors.DebugInterceptor;
 import com.mk.latte.net.rx.AddCookieInterceptor;
+import com.mk.latte.util.callback.CallBackManager;
+import com.mk.latte.util.callback.CallBackType;
+import com.mk.latte.util.callback.IGlobalCallBack;
 
 import cn.jpush.android.api.JPushInterface;
 
@@ -33,7 +37,7 @@ public class ExampleApp extends MultiDexApplication {
                 //http://127.0.0.1:1314/RestServer/api/index.php
                 //http://192.168.75.2:1314/RestServer/api/index.php
                 //真机 http://192.168.1.105:1314/RestServer/api/index.php
-                .withApiHost("http://192.168.1.105:1314/RestServer/api/")
+                .withApiHost("http://192.168.75.2:1314/RestServer/api/")
                 .withInterceptor(new DebugInterceptor("test", R.raw.test))
                 .withJavaScriptInterface("latte")
                 .withWebEevent("test", new TestEvent())
@@ -48,6 +52,26 @@ public class ExampleApp extends MultiDexApplication {
         //开启极光推送
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
+
+        CallBackManager.getInstance()
+                .addCallBack(CallBackType.TAG_OPEN_PUSH, new IGlobalCallBack() {
+                    @Override
+                    public void executeCallBack(@Nullable Object args) {
+                        if (JPushInterface.isPushStopped(Latte.getApplicationContext())) {
+                            //开启极光推送
+                            JPushInterface.setDebugMode(true);
+                            JPushInterface.init(Latte.getApplicationContext());
+                        }
+                    }
+                }).addCallBack(CallBackType.TAG_STOP_PUSH, new IGlobalCallBack() {
+            @Override
+            public void executeCallBack(@Nullable Object args) {
+                if (!JPushInterface.isPushStopped(Latte.getApplicationContext())) {
+                    JPushInterface.stopPush(Latte.getApplicationContext());
+                }
+            }
+        });
+
 
     }
 

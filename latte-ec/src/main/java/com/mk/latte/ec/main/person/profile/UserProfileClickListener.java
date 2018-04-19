@@ -29,6 +29,7 @@ import com.mk.latte.util.log.LatteLogger;
 public class UserProfileClickListener extends SimpleClickListener {
 
     private final LatteDelegate DELEGATE;
+    //性别信息
     private String[] mGenders = new String[]{"男", "女", "保密"};
 
 
@@ -76,7 +77,7 @@ public class UserProfileClickListener extends SimpleClickListener {
             case 2:
                 //姓名
                 final LatteDelegate nameDelegate = entity.getDelegate();
-                DELEGATE.getSupportDelegate().start(nameDelegate);
+                DELEGATE.getSupportDelegate().start(nameDelegate,0);
 
                 break;
             case 3:

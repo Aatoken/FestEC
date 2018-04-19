@@ -1,5 +1,6 @@
 package com.mk.latte.ec.main.person.list;
 
+import android.support.v7.widget.SwitchCompat;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -19,6 +20,7 @@ public class ListAdapter extends BaseMultiItemQuickAdapter<ListBean,BaseViewHold
 
     public ListAdapter(List<ListBean> data) {
         super(data);
+        //UI类型添加到内部数组
         addItemType(ListItemType.ITEM_NORMAL, R.layout.arrow_item_layout);
         addItemType(ListItemType.ITEM_AVATAR, R.layout.arrow_item_avatar);
         addItemType(ListItemType.ITEM_SWITCH,R.layout.arrow_switch_layout);
@@ -38,6 +40,10 @@ public class ListAdapter extends BaseMultiItemQuickAdapter<ListBean,BaseViewHold
                         .into((ImageView) helper.getView(R.id.img_arrow_avatar));
                 break;
             case ListItemType.ITEM_SWITCH:
+                helper.setText(R.id.tv_arrow_switch_text, item.getText());
+                final SwitchCompat switchCompat=helper.getView(R.id.list_item_switch);
+                switchCompat.setChecked(true);
+                switchCompat.setOnCheckedChangeListener(item.getmOnCheckedChangeListener());
                 break;
             default:
                 break;
