@@ -62,6 +62,10 @@ public class OrderListDelegate extends LatteDelegate {
                         final OrderListAdapter adapter = new OrderListAdapter(data);
                         mRecyclerView.setAdapter(adapter);
 
+                        //设置订单详细的点击事件
+                        mRecyclerView.addOnItemTouchListener(new OrderListClickListener
+                                (OrderListDelegate.this));
+
                     }
                 })
                 .build()
