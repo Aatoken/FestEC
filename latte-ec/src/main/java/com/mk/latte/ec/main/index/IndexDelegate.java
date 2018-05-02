@@ -17,8 +17,13 @@ import com.mk.latte.ec.R2;
 import com.mk.latte.ec.main.EcBottomDelegate;
 import com.mk.latte.ui.recycle.BaseDecoration;
 import com.mk.latte.ui.refresh.RefreshHandler;
+import com.mk.latte.util.callback.CallBackManager;
+import com.mk.latte.util.callback.CallBackType;
+import com.mk.latte.util.callback.IGlobalCallBack;
+import com.mk.latte.util.toast.ToastUtils;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 
 /**
@@ -42,6 +47,12 @@ public class IndexDelegate extends BottomItemDelegate {
 
     private RefreshHandler mRefreshHandler = null;
 
+    //二维码扫描
+    @OnClick(R2.id.icon_index_scan)
+    void  onClickScanOrCode()
+    {
+        startScanWithCheck(this.getParentDelegate());
+    }
 
     /**
      * 初始化加载 layout
@@ -101,6 +112,16 @@ public class IndexDelegate extends BottomItemDelegate {
         //使用handler控制 mRefreshLayout
         mRefreshHandler = RefreshHandler.create(mRefreshLayout, mRecyclerView, new
                 IndexDataConverter());
+
+        CallBackManager.getInstance()
+                .addCallBack(CallBackType.ON_SCAN, new IGlobalCallBack<String>() {
+                    @Override
+                    public void executeCallBack(@Nullable String args) {
+                        //二维码的回调
+
+                        ToastUtils.showToast("得到的二维码:"+args);
+                    }
+                });
     }
 
 

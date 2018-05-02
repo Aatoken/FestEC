@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.mk.latte.ui.camera.CameraImageBean;
 import com.mk.latte.ui.camera.LatteCamera;
 import com.mk.latte.ui.camera.RequestCodes;
+import com.mk.latte.ui.scanner.ScannerDelegate;
 import com.mk.latte.util.callback.CallBackManager;
 import com.mk.latte.util.callback.CallBackType;
 import com.mk.latte.util.callback.IGlobalCallBack;
@@ -36,35 +37,45 @@ public abstract class PermissionCheckerDelegate extends BaseDelegate {
         LatteCamera.start(this);
     }
 
+    //调用方法的入口
+
     /**
      * 照相机 调用的方法
      */
-    public void startCameraWithCheck()
-    {
+    public void startCameraWithCheck() {
         PermissionCheckerDelegatePermissionsDispatcher.startCameraWithCheck(this);
     }
+
+    //扫描二维码
+    @NeedsPermission(Manifest.permission.CAMERA)
+    void startScan(BaseDelegate delegate) {
+        delegate.getSupportDelegate().startForResult(new ScannerDelegate(),RequestCodes.SCAN);
+    }
+
+    public void startScanWithCheck(BaseDelegate delegate)
+    {
+        PermissionCheckerDelegatePermissionsDispatcher.startScanWithCheck(this,delegate);
+    }
+
 
     /**
      * 获取权限失败
      */
     @OnPermissionDenied(Manifest.permission.CAMERA)
-    void onCameraDenied()
-    {
-        Toast.makeText(getContext(),"不允许拍照",Toast.LENGTH_SHORT).show();
+    void onCameraDenied() {
+        Toast.makeText(getContext(), "不允许拍照", Toast.LENGTH_SHORT).show();
     }
 
     /**
      * 拒绝权限
      */
     @OnNeverAskAgain(Manifest.permission.CAMERA)
-    void  onCameraNever()
-    {
-        Toast.makeText(getContext(),"永久拒绝权限",Toast.LENGTH_SHORT).show();
+    void onCameraNever() {
+        Toast.makeText(getContext(), "永久拒绝权限", Toast.LENGTH_SHORT).show();
     }
 
     @OnShowRationale(Manifest.permission.CAMERA)
-    void onCameraRationale(PermissionRequest request)
-    {
+    void onCameraRationale(PermissionRequest request) {
         showRationaleDialog(request);
     }
 
@@ -139,16 +150,16 @@ public abstract class PermissionCheckerDelegate extends BaseDelegate {
     }
 
 
-
     @NeedsPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-    void checkWrite(){
+    void checkWrite() {
 
     }
 
     @NeedsPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
-    void checkRed(){
+    void checkRed() {
 
     }
+
     @OnPermissionDenied(Manifest.permission.WRITE_EXTERNAL_STORAGE)
     void onWriteaDenied() {
         Toast.makeText(getContext(), "不允许写文件", Toast.LENGTH_LONG).show();
