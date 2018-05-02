@@ -4,6 +4,7 @@ import android.support.annotation.Nullable;
 import android.support.multidex.MultiDexApplication;
 
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
+import com.mk.festec.example.event.ShareEvent;
 import com.mk.festec.example.event.TestEvent;
 import com.mk.latte.app.Latte;
 import com.mk.latte.ec.database.DatabaseManager;
@@ -41,6 +42,7 @@ public class ExampleApp extends MultiDexApplication {
                 .withInterceptor(new DebugInterceptor("test", R.raw.test))
                 .withJavaScriptInterface("latte")
                 .withWebEevent("test", new TestEvent())
+                .withWebEevent("share",new ShareEvent())
                 //添加Cookie同步拦截器
                 .withInterceptor(new AddCookieInterceptor())
                 .withWebHost("https://www.baidu.com/")
