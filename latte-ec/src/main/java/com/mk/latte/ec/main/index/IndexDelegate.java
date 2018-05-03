@@ -15,6 +15,7 @@ import com.mk.latte.delegates.bottom.BottomItemDelegate;
 import com.mk.latte.ec.R;
 import com.mk.latte.ec.R2;
 import com.mk.latte.ec.main.EcBottomDelegate;
+import com.mk.latte.ec.main.index.search.SearchDelegate;
 import com.mk.latte.ui.recycle.BaseDecoration;
 import com.mk.latte.ui.refresh.RefreshHandler;
 import com.mk.latte.util.callback.CallBackManager;
@@ -31,7 +32,7 @@ import butterknife.OnClick;
  * @data 2017/10/30
  */
 
-public class IndexDelegate extends BottomItemDelegate {
+public class IndexDelegate extends BottomItemDelegate  implements View.OnFocusChangeListener{
 
 
     @BindView(R2.id.rv_index)
@@ -122,6 +123,17 @@ public class IndexDelegate extends BottomItemDelegate {
                         ToastUtils.showToast("得到的二维码:"+args);
                     }
                 });
+
+        mSearchView.setOnFocusChangeListener(this);
+    }
+
+
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+        if(hasFocus)
+        {
+            getParentDelegate().getSupportDelegate().start(new SearchDelegate());
+        }
     }
 
 
