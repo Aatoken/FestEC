@@ -20,12 +20,18 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.bigkoo.convenientbanner.ConvenientBanner;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
+import com.daimajia.androidanimations.library.YoYo;
 import com.joanzapata.iconify.widget.IconTextView;
 import com.mk.latte.delegates.LatteDelegate;
 import com.mk.latte.ec.R;
 import com.mk.latte.ec.R2;
 import com.mk.latte.net.RestClient;
 import com.mk.latte.net.callback.ISuccess;
+import com.mk.latte.ui.animation.BezierAnimation;
+import com.mk.latte.ui.animation.BezierUtil;
 import com.mk.latte.ui.banner.HolderCreator;
 import com.mk.latte.ui.widget.CircleTextView;
 import com.mk.latte.util.toast.ToastUtils;
@@ -34,6 +40,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
 import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator;
 import me.yokeyword.fragmentation.anim.FragmentAnimator;
 
@@ -43,7 +51,8 @@ import me.yokeyword.fragmentation.anim.FragmentAnimator;
  */
 
 public class GoodsDetailDelegate extends LatteDelegate
-        implements AppBarLayout.OnOffsetChangedListener {
+        implements AppBarLayout.OnOffsetChangedListener
+                   , BezierUtil.AnimationListener{
 
     @BindView(R2.id.goods_detail_toolbar)
     Toolbar mToolbar = null;
@@ -66,6 +75,31 @@ public class GoodsDetailDelegate extends LatteDelegate
     RelativeLayout mRlAddShopCart = null;
     @BindView(R2.id.icon_shop_cart)
     IconTextView mIconShopCart = null;
+
+    private String mGoodsThumbUrl = null;
+    private int mShopCount = 0;
+    private static final RequestOptions OPTIONS = new RequestOptions()
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .centerCrop()
+            .dontAnimate()
+            .override(100, 100);
+
+    @OnClick(R2.id.rl_add_shop_cart)
+    void onClickAddShopCart() {
+        final CircleImageView animImg = new CircleImageView(getContext());
+        Glide.with(this)
+                .load(mGoodsThumbUrl)
+                .apply(OPTIONS)
+                .into(animImg);
+        BezierAnimation.addCart(this, mRlAddShopCart, mIconShopCart, animImg, this);
+    }
+
+    private void setShopCartCount(JSONObject data) {
+        mGoodsThumbUrl = data.getString("thumb");
+        if (mShopCount == 0) {
+            mCircleTextView.setVisibility(View.GONE);
+        }
+    }
 
     private static final String ARG_GOODS_ID = "arg_goods_id";
     private int mGoodsId = -1;
@@ -109,17 +143,17 @@ public class GoodsDetailDelegate extends LatteDelegate
     private void initTableLayout() {
         mTabLayout.setTabMode(TabLayout.MODE_FIXED);
         mTabLayout.setSelectedTabIndicatorColor(
-                ContextCompat.getColor(getContext(),R.color.app_main));
+                ContextCompat.getColor(getContext(), R.color.app_main));
         mTabLayout.setTabTextColors(ColorStateList.valueOf(Color.BLACK));
         mTabLayout.setBackgroundColor(Color.WHITE);
         mTabLayout.setupWithViewPager(mViewPager);
     }
 
     private void initData() {
-        mGoodsId=1;
+        mGoodsId = 1;
         RestClient.builder()
                 .url("goods_detail.php")
-                .params("goods_id",mGoodsId)
+                .params("goods_id", mGoodsId)
                 .loader(getContext())
                 .success(new ISuccess() {
                     @Override
@@ -130,6 +164,7 @@ public class GoodsDetailDelegate extends LatteDelegate
                         initBanner(data);
                         initGoodsInfo(data);
                         initPager(data);
+                        setShopCartCount(data);
                     }
                 })
                 .build()
@@ -165,9 +200,8 @@ public class GoodsDetailDelegate extends LatteDelegate
                 loadRootFragment(R.id.frame_goods_info, GoodsInfoDelegate.create(goodsData));
     }
 
-    private void initPager(JSONObject data)
-    {
-        final PagerAdapter adapter=new TabPagerAdapter(getFragmentManager(),data);
+    private void initPager(JSONObject data) {
+        final PagerAdapter adapter = new TabPagerAdapter(getFragmentManager(), data);
         mViewPager.setAdapter(adapter);
     }
 
@@ -184,4 +218,15 @@ public class GoodsDetailDelegate extends LatteDelegate
     }
 
 
+    @Override
+    public void onAnimationEnd() {
+        YoYo.with(new ScaleUpAnimator())
+                .duration(500)
+                .playOn(mIconShopCart);
+        mShopCount++;
+        mCircleTextView.setVisibility(View.VISIBLE);
+        mCircleTextView.setText(String.valueOf(mShopCount));
+
+        //上传到服务器修改数目
+    }
 }
