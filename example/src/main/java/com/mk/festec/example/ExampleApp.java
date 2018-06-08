@@ -38,7 +38,7 @@ public class ExampleApp extends MultiDexApplication {
                 //http://127.0.0.1:1314/RestServer/api/index.php
                 //http://192.168.75.2:1314/RestServer/api/index.php
                 //真机 http://192.168.1.106:1314/RestServer/api/index.php
-                .withApiHost("http://192.168.1.106:1314/RestServer/api/")
+                .withApiHost("http://192.168.1.104:1314/RestServer/api/")
                 .withInterceptor(new DebugInterceptor("test", R.raw.test))
                 .withJavaScriptInterface("latte")
                 .withWebEevent("test", new TestEvent())
